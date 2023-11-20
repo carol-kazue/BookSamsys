@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yPytNmG14+36azeH6bYih2Ryr1ZP8/pql57keSyazNVhNwCJWjQHbOWJOrBPg+wI7+nX1CLVPY2qJxXN4XWEQg==",
+  "dgSpecHash": "LslfuCv74fODEZkVIDfayQHcnXyE4OGNavwK/F26kfJ5oX85oZO3AdJHKxnE4a6K+7wE1oBQWNaOwcLeNCKNzA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Utilizador\\Documents\\GitHub\\Samsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
+  "projectFilePath": "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Utilizador\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Utilizador\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
