@@ -5,50 +5,50 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApiBookSamsys.Infrastructure.Services;
 using WepApiBookSamsys.Infrastructure.Entities;
+using WebApiBookSamsys.Infrastructure.DTOs;
+using static WebApiBookSamsys.Infrastructure.MenssageHelper;
+using System.Data.Entity;
 
 namespace WebApiBookSamsys.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class LivroController : ControllerBase
     {
-        private readonly BookSamsysContext _context;
+        private readonly LivroService _serviceLivro ;    
 
-        public LivroController(BookSamsysContext context)
+        public LivroController(LivroService service)
         {
-            _context = context;
+            _serviceLivro = service;
         }
 
-        // GET: api/Livro
+        // GET: api/Livros pega a lista de livros somente 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Livro>>> GetLivros()
+        [Route("livros")]
+        public async Task<MessageHelper<IEnumerable<Livro>>> GetAll()
         {
-          if (_context.Livros == null)
-          {
-              return NotFound();
-          }
-            return await _context.Livros.ToListAsync();
+            return await _serviceLivro.GetLivros();
         }
 
-        // GET: api/Livro/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Livro>> GetLivro(int id)
+        
+        // GET: api/Livro/5 pega um livro 
+        [HttpGet]
+        [Route("livro/{isbn}")]
+        public async Task<MessageHelper<IEnumerable<LivroDTO>>>GetBookByIsbn(int isbn)
         {
-          if (_context.Livros == null)
-          {
-              return NotFound();
-          }
-            var livro = await _context.Livros.FindAsync(id);
-
-            if (livro == null)
-            {
-                return NotFound();
-            }
-
-            return livro;
+            return await _serviceLivro.GetLivro(isbn);
         }
 
+        // POST: api/Livro Criar novo livro juntamente com o id do autor 
+        [HttpPost]
+        [Route("add-livro")]
+        public async Task<MessageHelper<IEnumerable<LivroNovoDTO>>> PostBook (LivroNovoDTO livro)
+        {
+            return await _serviceLivro.PostLivro(livro);
+        }
+        /*
         // PUT: api/Livro/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -80,20 +80,7 @@ namespace WebApiBookSamsys.Controllers
             return NoContent();
         }
 
-        // POST: api/Livro
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Livro>> PostLivro(Livro livro)
-        {
-          if (_context.Livros == null)
-          {
-              return Problem("Entity set 'BookSamsysContext.Livros'  is null.");
-          }
-            _context.Livros.Add(livro);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLivro", new { id = livro.ISBN }, livro);
-        }
+        
 
         // DELETE: api/Livro/5
         [HttpDelete("{id}")]
@@ -119,5 +106,6 @@ namespace WebApiBookSamsys.Controllers
         {
             return (_context.Livros?.Any(e => e.ISBN == id)).GetValueOrDefault();
         }
+        */
     }
 }
