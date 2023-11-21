@@ -4,7 +4,7 @@ using static webApiSamsys.Infrastructure.MessengerHelper.MessengerHelper;
 
 namespace webApiSamsys.Infrastructure.Services
 {
-    public class LivroService
+    public class LivroService 
     {
         private readonly LivroRepository _livroRepository;  
 
@@ -15,11 +15,11 @@ namespace webApiSamsys.Infrastructure.Services
         /**
          * 
          */
-        public async Task<MessangingHelper<IEnumerable<Livro>>> GetLivros()
+        public async Task<MessangingHelper<IEnumerable<Livro>>> GetBooks()  
         {
             var response = new MessangingHelper<IEnumerable<Livro>>();
             string errorMessage = "Ocorreu um erro enquanto era buscado o dado";
-            var livros = await _livroRepository.GetLivros();
+            var livros = await _livroRepository.GetAllBook();
 
             if (livros != null)
             {
@@ -32,32 +32,22 @@ namespace webApiSamsys.Infrastructure.Services
             response.Message = errorMessage;
             return response;
         }
-        /*
-        public async Task<MessangingHelper<IEnumerable<Livro>>> GetLivro(int isbn)
+        
+        public async Task<MessangingHelper<IEnumerable<Livro>>> GetBook(int isbn)       
         {
             var response = new MessangingHelper<IEnumerable<Livro>>();
 
             string livroEncontrado = "Livro encontrado";
-            string livroNaoEncontrado = " Livro não encontrado";
+            string livroNaoEncontrado = "Livro não encontrado";
             string listaVazia = "Lista de livros vazia";
 
-            // métodos de busca do ef framework diretamente da tabela;
-            var checarLivros = await _context.Livros
-                .Where(livro => livro.ISBN == isbn)
-                .ToListAsync();
+            var livroObj = await _livroRepository.GetBookById(isbn);
 
-            if (checarLivros.Any())
+            if (livroObj != null)
             {
-                // Mapeia os livros encontrados para DTOs
-                var livrosDTO = checarLivros.Select(checarLivro => new Livro
-                {
-                    ISBN = checarLivro.ISBN,
-                    Nome = checarLivro.Nome,
-                    Preco = checarLivro.Preco
-                }).ToList();
-
-                response.Obj = livrosDTO;
+                response.Obj = livroObj;
                 response.Success = true;
+                response.Message = livroEncontrado;
                 return response;
             }
             else
@@ -67,23 +57,35 @@ namespace webApiSamsys.Infrastructure.Services
                 return response;
             }
         }
-
-        public async Task<MessangingHelper<IEnumerable<Livro>>> PostLivro(livro livro)
+        
+        public async Task<MessangingHelper<Livro>> AddBook(Livro novoLivro)     
         {
-            var checarAutor = await _context.Autores
-            .Where(autor => autor.Nome == livro.Autores)
-            .ToListAsync();
-
-            if (checarAutor.Any())
+            var response = new MessangingHelper<Livro>();
+            if(novoLivro.ISBN.ToString().Length == 13 || novoLivro.Preco >0 || novoLivro.Nome.Length > 0 || novoLivro != null)
             {
-                var novoLivro = new Livro()
+                var checarSeExiste = _livroRepository.GetBookById(novoLivro.ISBN);
+                if(checarSeExiste == null)
                 {
-                    ISBN = livro.ISBN,
-                    Nome = livro.Nome,
-                    Preco = livro.Preco
-                };
+                    response.Success = true;
+                    response.Message = "Livro adicionado com sucesso";
+                    await _livroRepository.AddOneBook(novoLivro);
+                    return response;
+                }
+                else
+                {
+
+                    response.Success = false;
+                    response.Message = "livro já existe";
+                    return response;
+                }
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "Os campos precisam ser escritos corretamente";
+                return response;
             }
         }
-        */
+        
     }
 }
