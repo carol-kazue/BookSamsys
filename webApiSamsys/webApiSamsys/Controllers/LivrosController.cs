@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using webApiSamsys.Infrastructure.Entities;
 using webApiSamsys.Infrastructure.Services;
 using static webApiSamsys.Infrastructure.MessengerHelper.MessengerHelper;
+using webApiSamsys;
 
 namespace webApiSamsys.Controllers
 {
@@ -15,13 +16,21 @@ namespace webApiSamsys.Controllers
     [ApiController]
     public class LivrosController : ControllerBase   
     {
+
         private readonly LivroService _serviceLivro;
 
-        public LivrosController(LivroService service)   
+        public LivrosController(LivroService serviceLivro)
+        {
+            _serviceLivro = serviceLivro ?? throw new ArgumentNullException(nameof(serviceLivro));
+        }
+        /*
+        private readonly LivroService _serviceLivro;
+
+        public LivrosController(LivroService service)
         {
             _serviceLivro = service;
         }
-
+        */
 
         // GET: api/Livros pega a lista de livros somente 
 
