@@ -31,94 +31,94 @@ namespace webApiSamsys.Controllers
         {
             return await _serviceLivro.GetLivros();
         }
-
-        // GET: api/Livro/5 pega um livro 
-        [HttpGet]
-        [Route("livro/{isbn}")]
-        public async Task<MessangingHelper<IEnumerable<Livro>>> GetBookByIsbn(int isbn)
-        {
-            return await _serviceLivro.GetLivro(isbn);
-        }
-
-        // POST: api/Livro Criar novo livro juntamente com o id do autor 
-        [HttpPost]
-        [Route("add-livro")]
-        public async Task<MessangingHelper<IEnumerable<Livro>>> PostBook(Livro livro)
-        {
-            return await _serviceLivro.PostLivro(livro);
-        }
-
         /*
-        // PUT: api/Livroes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLivro(int id, Livro livro)
-        {
-            if (id != livro.ISBN)
-            {
-                return BadRequest();
-            }
+       // GET: api/Livro/5 pega um livro 
+       [HttpGet]
+       [Route("livro/{isbn}")]
+       public async Task<MessangingHelper<IEnumerable<Livro>>> GetBookByIsbn(int isbn)
+       {
+           return await _serviceLivro.GetLivro(isbn);
+       }
 
-            _context.Entry(livro).State = EntityState.Modified;
+       // POST: api/Livro Criar novo livro juntamente com o id do autor 
+       [HttpPost]
+       [Route("add-livro")]
+       public async Task<MessangingHelper<IEnumerable<Livro>>> PostBook(Livro livro)
+       {
+           return await _serviceLivro.PostLivro(livro);
+       }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LivroExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
-        }
+       // PUT: api/Livroes/5
+       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       [HttpPut("{id}")]
+       public async Task<IActionResult> PutLivro(int id, Livro livro)
+       {
+           if (id != livro.ISBN)
+           {
+               return BadRequest();
+           }
 
-        // POST: api/Livroes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Livro>> PostLivro(Livro livro)
-        {
-          if (_context.Livros == null)
-          {
-              return Problem("Entity set 'BookSamsysContext.Livros'  is null.");
-          }
-            _context.Livros.Add(livro);
-            await _context.SaveChangesAsync();
+           _context.Entry(livro).State = EntityState.Modified;
 
-            return CreatedAtAction("GetLivro", new { id = livro.ISBN }, livro);
-        }
+           try
+           {
+               await _context.SaveChangesAsync();
+           }
+           catch (DbUpdateConcurrencyException)
+           {
+               if (!LivroExists(id))
+               {
+                   return NotFound();
+               }
+               else
+               {
+                   throw;
+               }
+           }
 
-        // DELETE: api/Livroes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLivro(int id)
-        {
-            if (_context.Livros == null)
-            {
-                return NotFound();
-            }
-            var livro = await _context.Livros.FindAsync(id);
-            if (livro == null)
-            {
-                return NotFound();
-            }
+           return NoContent();
+       }
 
-            _context.Livros.Remove(livro);
-            await _context.SaveChangesAsync();
+       // POST: api/Livroes
+       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       [HttpPost]
+       public async Task<ActionResult<Livro>> PostLivro(Livro livro)
+       {
+         if (_context.Livros == null)
+         {
+             return Problem("Entity set 'BookSamsysContext.Livros'  is null.");
+         }
+           _context.Livros.Add(livro);
+           await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+           return CreatedAtAction("GetLivro", new { id = livro.ISBN }, livro);
+       }
 
-        private bool LivroExists(int id)
-        {
-            return (_context.Livros?.Any(e => e.ISBN == id)).GetValueOrDefault();
-        }
-        */
+       // DELETE: api/Livroes/5
+       [HttpDelete("{id}")]
+       public async Task<IActionResult> DeleteLivro(int id)
+       {
+           if (_context.Livros == null)
+           {
+               return NotFound();
+           }
+           var livro = await _context.Livros.FindAsync(id);
+           if (livro == null)
+           {
+               return NotFound();
+           }
+
+           _context.Livros.Remove(livro);
+           await _context.SaveChangesAsync();
+
+           return NoContent();
+       }
+
+       private bool LivroExists(int id)
+       {
+           return (_context.Livros?.Any(e => e.ISBN == id)).GetValueOrDefault();
+       }
+       */
     }
 }

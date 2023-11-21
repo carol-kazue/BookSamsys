@@ -9,33 +9,33 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApiBookSamsys
 build_property.RootNamespace = WebApiBookSamsys
-build_property.ProjectDir = C:\Users\Utilizador\Documents\WebApiBookSamsys\WebApiBookSamsys\
+build_property.ProjectDir = C:\Users\Utilizador\Documents\GitHub\BookSamsys\BookSamsys\WebApiBookSamsys\WebApiBookSamsys\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Utilizador\Documents\WebApiBookSamsys\WebApiBookSamsys
+build_property.MSBuildProjectDirectory = C:\Users\Utilizador\Documents\GitHub\BookSamsys\BookSamsys\WebApiBookSamsys\WebApiBookSamsys
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Create.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Delete.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Details.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Edit.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Index.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Autor/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Utilizador/Documents/WebApiBookSamsys/WebApiBookSamsys/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Utilizador/Documents/GitHub/BookSamsys/BookSamsys/WebApiBookSamsys/WebApiBookSamsys/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

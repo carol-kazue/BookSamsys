@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Utilizador\\Documents\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj": {}
+    "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Utilizador\\Documents\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj": {
+    "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Utilizador\\Documents\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
+        "projectUniqueName": "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
         "projectName": "WebApiBookSamsys",
-        "projectPath": "C:\\Users\\Utilizador\\Documents\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
+        "projectPath": "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\WebApiBookSamsys.csproj",
         "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Utilizador\\Documents\\WebApiBookSamsys\\WebApiBookSamsys\\obj\\",
+        "outputPath": "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\BookSamsys\\WebApiBookSamsys\\WebApiBookSamsys\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

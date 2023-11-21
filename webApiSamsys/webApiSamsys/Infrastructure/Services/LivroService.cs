@@ -1,15 +1,16 @@
 ﻿using webApiSamsys.Infrastructure.Entities;
+using webApiSamsys.Infrastructure.Repository;
 using static webApiSamsys.Infrastructure.MessengerHelper.MessengerHelper;
 
 namespace webApiSamsys.Infrastructure.Services
 {
     public class LivroService
     {
-        private readonly BookSamsysContext _context;
+        private readonly LivroRepository _livroRepository;  
 
-        public LivroService(BookSamsysContext context)
+        public LivroService(LivroRepository livroRepository)    
         {
-            _context = context;
+            _livroRepository = livroRepository;
         }
         /**
          * 
@@ -18,14 +19,7 @@ namespace webApiSamsys.Infrastructure.Services
         {
             var response = new MessangingHelper<IEnumerable<Livro>>();
             string errorMessage = "Ocorreu um erro enquanto era buscado o dado";
-            var livros = await _context.Livros
-            .Select(checarLivro => new Livro
-            {
-                ISBN = checarLivro.ISBN,
-                Nome = checarLivro.Nome,
-                Preco = checarLivro.Preco,
-            })
-            .ToListAsync();
+            var livros = await _livroRepository.GetLivros();
 
             if (livros != null)
             {
@@ -38,7 +32,7 @@ namespace webApiSamsys.Infrastructure.Services
             response.Message = errorMessage;
             return response;
         }
-
+        /*
         public async Task<MessangingHelper<IEnumerable<Livro>>> GetLivro(int isbn)
         {
             var response = new MessangingHelper<IEnumerable<Livro>>();
@@ -89,9 +83,7 @@ namespace webApiSamsys.Infrastructure.Services
                     Preco = livro.Preco
                 };
             }
-
-
         }
-
+        */
     }
 }
