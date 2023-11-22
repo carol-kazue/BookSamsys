@@ -17,13 +17,13 @@ namespace webApiSamsys.Infrastructure.Repository
         }
         public async Task<IEnumerable<Livro>> GetAllBook()  
         {
-            return await _context.Livros.Select(l => l).ToListAsync();
-
+            return await _context.Livros.ToListAsync();
+            
         }
 
         public async Task<IEnumerable<Livro>> GetBookById(int isbn)      
         {
-           return await _context.Livros.Select(l => l).Where(l => l.ISBN == isbn).ToListAsync();
+           return await _context.Livros.Where(l => l.ISBN == isbn).ToListAsync();
         }
 
         public async Task<Livro> AddOneBook(Livro livro)    

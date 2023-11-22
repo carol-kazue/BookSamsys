@@ -9,28 +9,23 @@ using webApiSamsys.Infrastructure.Entities;
 using webApiSamsys.Infrastructure.Services;
 using static webApiSamsys.Infrastructure.MessengerHelper.MessengerHelper;
 using webApiSamsys;
+using webApiSamsys.Infrastructure.Repository;
 
 namespace webApiSamsys.Controllers
 {
-    [Route("api")]
+    
     [ApiController]
+    [Route("api")]
     public class LivrosController : ControllerBase   
     {
 
-        private readonly LivroService _serviceLivro;
-
-        public LivrosController(LivroService serviceLivro)
-        {
-            _serviceLivro = serviceLivro ?? throw new ArgumentNullException(nameof(serviceLivro));
-        }
-        /*
         private readonly LivroService _serviceLivro;
 
         public LivrosController(LivroService service)
         {
             _serviceLivro = service;
         }
-        */
+        
 
         // GET: api/Livros pega a lista de livros somente 
 
@@ -89,20 +84,6 @@ namespace webApiSamsys.Controllers
           return NoContent();
       }
 
-      // POST: api/Livroes
-      // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-      [HttpPost]
-      public async Task<ActionResult<Livro>> PostLivro(Livro livro)
-      {
-        if (_context.Livros == null)
-        {
-            return Problem("Entity set 'BookSamsysContext.Livros'  is null.");
-        }
-          _context.Livros.Add(livro);
-          await _context.SaveChangesAsync();
-
-          return CreatedAtAction("GetLivro", new { id = livro.ISBN }, livro);
-      }
 
       // DELETE: api/Livroes/5
       [HttpDelete("{id}")]
