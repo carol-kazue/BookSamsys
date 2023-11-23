@@ -1,4 +1,6 @@
-﻿using webApiSamsys.Infrastructure.Entities;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using webApiSamsys.Infrastructure.Entities;
 using webApiSamsys.Infrastructure.Repository;
 using static webApiSamsys.Infrastructure.MessengerHelper.MessengerHelper;
 
@@ -52,8 +54,13 @@ namespace webApiSamsys.Infrastructure.Services
             string listaVazia = "Lista de livros vazia";
             try
             {
-                var livroObj = await _livroRepository.GetBookById(isbn);
+                if(isbn.ToString().Length != 13)
+                {
+                   response.Message= "Isbn precisa ter 13 caracteres";
+                   return response;
+                }
 
+                var livroObj = await _livroRepository.GetBookById(isbn);
                 if (livroObj != null)
                 {
                     response.Obj = livroObj;
@@ -77,12 +84,12 @@ namespace webApiSamsys.Infrastructure.Services
             }
         }
         
-        public async Task<MessangingHelper<Livro>> AddBook(Livro novoLivro)     
+        public async Task<MessangingHelper<Livro>>AddBook(Livro novoLivro)     
         {
-            var response = new MessangingHelper<Livro>();
+            MessangingHelper<Livro> response = new();
 
 
-            if(novoLivro.ISBN.ToString().Length == 13 || novoLivro.Preco >0 || novoLivro.Nome.Length > 0 || novoLivro != null)
+            if (novoLivro.ISBN.ToString().Length == 13 || novoLivro.Preco >0 || novoLivro.Nome.Length > 0 || novoLivro != null)
             {
                 var checarSeExiste = _livroRepository.GetBookById(novoLivro.ISBN);
                 if(checarSeExiste == null)

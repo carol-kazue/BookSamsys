@@ -8,7 +8,7 @@ namespace webApiSamsys.Infrastructure.Entities
         [Key]
         public int Id { get; set; }
         [ForeignKey("Livro")]
-        public int ISBN { get; set; }
+        public string ISBN { get; set; }
         [ForeignKey("Autor")]
         public int IdAutor { get; set; }
     }

@@ -29,26 +29,30 @@ namespace webApiSamsys.Controllers
 
         // GET: api/Livros pega a lista de livros somente 
 
-        [HttpGet]
-        [Route("livros")]
+        [HttpGet("livros")]
+        //[Route("livros")]
         public async Task<MessangingHelper<IEnumerable<Livro>>> GetAll()
         {
             return await _serviceLivro.GetBooks();
         }
         
        // GET: api/Livro/5 pega um livro passando como parâmetro o isbn
-       [HttpGet]
-       [Route("livro/{isbn}")]
+       [HttpGet("livro/{isbn}")]
+       //[Route("livro/{isbn}")]
        public async Task<MessangingHelper<IEnumerable<Livro>>> GetBookByIsbn(int isbn)
        {
            return await _serviceLivro.GetBook(isbn);    
        }
        
        // POST: api/Livro Criar novo livro juntamente com o id do autor 
-        [HttpPost]
-        [Route("add-livro")]
-        public async Task<MessangingHelper<Livro>> PostBook(Livro livro)
+        [HttpPost("livro")]
+        //[Route("livro")]
+        public async Task<MessangingHelper<Livro>> PostBook([FromBody]Livro livro)
         {
+           // var ofelia = 1;
+           // MessangingHelper<Livro> response = new();
+           // response.Message = "Ofelinha";
+           // return response;
             return await _serviceLivro.AddBook(livro);
         }
 

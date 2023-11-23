@@ -18,7 +18,6 @@ namespace webApiSamsys.Infrastructure.Repository
         public async Task<IEnumerable<Livro>> GetAllBook()  
         {
             return await _context.Livros.ToListAsync();
-            
         }
 
         public async Task<IEnumerable<Livro>> GetBookById(int isbn)      
@@ -28,7 +27,13 @@ namespace webApiSamsys.Infrastructure.Repository
 
         public async Task<Livro> AddOneBook(Livro livro)    
         {
-            await _context.Livros.AddAsync(livro);
+            var novoLivro = new Livro
+            {
+                ISBN = livro.ISBN,
+                Nome = livro.Nome,
+                Preco = livro.Preco
+            };
+            await _context.Livros.AddAsync(novoLivro);
             await _context.SaveChangesAsync();
             return livro;
         }

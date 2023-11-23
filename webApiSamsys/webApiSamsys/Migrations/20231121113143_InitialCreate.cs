@@ -16,7 +16,7 @@ namespace webApiSamsys.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ISBN = table.Column<int>(type: "int", nullable: false),
+                    ISBN = table.Column<string>(type: "string", nullable: false),
                     IdAutor = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -41,7 +41,7 @@ namespace webApiSamsys.Migrations
                 name: "Livros",
                 columns: table => new
                 {
-                    ISBN = table.Column<int>(type: "int", nullable: false)
+                    ISBN = table.Column<string>(type: "string", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "varchar (50)", nullable: false),
                     Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false)

@@ -7,7 +7,8 @@ namespace webApiSamsys.Infrastructure.Entities
     {
 
         [Key]
-        public int ISBN { get; set; }
+        [Column(TypeName = "varchar (50)")]
+        public string ISBN { get; set; }
 
         [Column(TypeName = "varchar (50)")]
         public string Nome { get; set; }
