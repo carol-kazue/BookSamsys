@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\webApiBookSamsys.props" />
+</Project>
