@@ -3,6 +3,8 @@ using webApiBookSamsys.Controllers;
 using webApiBookSamsys.Infrastructure.Entities;
 using webApiBookSamsys.Infrastructure.Repository;
 using webApiBookSamsys.Infrastructure.Services;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace webApiBookSamsys
 {
@@ -20,12 +22,18 @@ namespace webApiBookSamsys
             services.AddScoped<BookRepository>();
             services.AddScoped<BookService>();
             //services.AddScoped<BooksController>();
+            
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
             // Configuração do Entity Framework Core (substitua com sua configuração)
             services.AddDbContext<BookSamsysContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
-
+           
+            services.AddCors();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
@@ -42,7 +50,7 @@ namespace webApiBookSamsys
 
             app.UseHttpsRedirection();
 
-            // app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseRouting();
             app.UseEndpoints(endpoints =>

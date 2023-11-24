@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -23,31 +24,28 @@ namespace webApiBookSamsys.Controllers
             _bookService = bookService;
         }
 
-        // GET: api/Books
+        // GET: api/livros
         [HttpGet("livros")]
         public async Task<List<Book>> GetBooks()
         {
             return await _bookService.GetBooks();
         }
-        /*
-        // GET: api/Books/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(long id)
+        // GET: api/livros/isbn
+        [HttpGet("{isbn}")]
+        public async Task<List<Book>> GetBook(string isbn)      
         {
-          if (_context.Books == null)
-          {
-              return NotFound();
-          }
-            var book = await _context.Books.FindAsync(id);
-
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return book;
+            return await _bookService.GetBookByIsbn(isbn);
         }
 
+        // POST: api/Book
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<List<Book>> PostBook(Book book)
+        {
+            return await _bookService.PostBookAsync(book);
+        }
+
+        /*
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -79,20 +77,7 @@ namespace webApiBookSamsys.Controllers
             return NoContent();
         }
 
-        // POST: api/Books
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
-        {
-          if (_context.Books == null)
-          {
-              return Problem("Entity set 'BookSamsysContext.Books'  is null.");
-          }
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBook", new { id = book.id }, book);
-        }
+        
 
         // DELETE: api/Books/5
         [HttpDelete("{id}")]

@@ -1,4 +1,5 @@
-﻿namespace webApiBookSamsys.Infrastructure.MessagingHelper
+﻿using Microsoft.EntityFrameworkCore;
+namespace webApiBookSamsys.Infrastructure.MessagingHelper
 {
     public class MessangingHelper<T>
     {

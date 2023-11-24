@@ -262,3 +262,6 @@ C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsy
 C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\LinqKit.Core.dll
 C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\LinqKit.EntityFramework.dll
+C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Utilizador\Documents\GitHub\BookSamsys\webApiBookSamsys\webApiBookSamsys\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
