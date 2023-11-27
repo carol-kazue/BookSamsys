@@ -7,6 +7,7 @@ namespace webApiBookSamsys.Infrastructure.Entities
 {
     public class Book
     {
+        internal string ErrorMessage;
 
         [Key]
         public long id { get; set; } 

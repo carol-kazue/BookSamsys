@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,86 +24,71 @@ namespace webApiBookSamsys.Controllers
         {
             _bookService = bookService;
         }
-
+        
         // GET: api/livros
         [HttpGet("livros")]
-        public async Task<List<Book>> GetBooks()
+        public async Task<ActionResult<Book>> GetBooks()
         {
             return await _bookService.GetBooks();
         }
-        // GET: api/livros/isbn
-        [HttpGet("{isbn}")]
-        public async Task<List<Book>> GetBook(string isbn)      
-        {
-            return await _bookService.GetBookByIsbn(isbn);
-        }
+       
+         // GET: api/livros/isbn
+         [HttpGet("{isbn}")]
+
+         public async Task<ActionResult<Book>> GetBook(string isbn)      
+         {
+             return await _bookService.GetBookByIsbn(isbn);
+         }
+         
 
         // POST: api/Book
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<List<Book>> PostBook([FromBody] Book book)
-        {
-            return await _bookService.PostBookAsync(book);
-        }
+        public async Task<ActionResult<Book>> PostBook([FromBody] Book book)
+          {
+              return await _bookService.PostBookAsync(book);
+          }
 
         /*
-        // PUT: api/Books/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(long id, Book book)
-        {
-            if (id != book.id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(book).State = EntityState.Modified;
+             // PUT: api/Books/5
+             // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+             [HttpPut("{id}")]
+             public async Task<IActionResult> PutBook(long id, Book book)
+             {
+                 if (id != book.id)
+                 {
+                     return BadRequest();
+                 }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                 _context.Entry(book).State = EntityState.Modified;
 
-            return NoContent();
-        }
+                 try
+                 {
+                     await _context.SaveChangesAsync();
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                     if (!BookExists(id))
+                     {
+                         return NotFound();
+                     }
+                     else
+                     {
+                         throw;
+                     }
+                 }
 
-        
+                 return NoContent();
+             }
 
-        // DELETE: api/Books/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(long id)
-        {
-            if (_context.Books == null)
-            {
-                return NotFound();
-            }
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
 
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
 
-        private bool BookExists(long id)
-        {
-            return (_context.Books?.Any(e => e.id == id)).GetValueOrDefault();
-        }
-        */
+             private bool BookExists(long id)
+             {
+                 return (_context.Books?.Any(e => e.id == id)).GetValueOrDefault();
+             }
+             */
     }
 }

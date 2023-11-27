@@ -14,7 +14,7 @@ namespace webApiBookSamsys.Infrastructure.Repository
             _context = context;
         }
       
-        public async Task<List<Book>> GetBooksAsync()
+        public async Task<ActionResult<List<Book>>> GetBooksAsync()
         {
             return  _context.Books.ToList();
         }
@@ -25,7 +25,7 @@ namespace webApiBookSamsys.Infrastructure.Repository
             //pesquisar porque o async não tá fucionando e porque o FindeDefault tbm não 
         }
 
-         public async Task<List<Book>> PostNewBook([FromBody] Book newBook)   
+         public async Task<Book> PostNewBook([FromBody] Book newBook)   
         {
             _context.Books.Add(newBook);
 
@@ -35,5 +35,6 @@ namespace webApiBookSamsys.Infrastructure.Repository
             // Retorna o livro adicionado (incluindo propriedades atualizadas, como a chave primária, se houver)
             return newBook;
         }
+       
     }
 }

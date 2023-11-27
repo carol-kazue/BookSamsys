@@ -5,6 +5,8 @@ using webApiBookSamsys.Infrastructure.Repository;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
+using System.Net.Mime;
+using Azure;
 
 namespace webApiBookSamsys.Infrastructure.Services
 {
@@ -16,8 +18,8 @@ namespace webApiBookSamsys.Infrastructure.Services
         {
             _bookRepository = bookRepository;
         }
-
-        public async Task<List<Book>>GetBooks()    
+       
+        public async Task<ActionResult<Book>>GetBooks()    
         {
            // string errorMessage = "Ocorreu um erro enquanto era buscado o livro";
             
@@ -26,83 +28,79 @@ namespace webApiBookSamsys.Infrastructure.Services
                 var livros = await _bookRepository.GetBooksAsync();
                 if (livros == null)
                 {
-                    return Ok("Não existe livro na lista");
+                    return new BadRequestResult();
                 }
-                return livros;
+                return new OkObjectResult(livros);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Ocorreu um erro interno.");
+                throw;
             }
 
         }
-
-        public async Task<List<Book>> GetBookByIsbn(string isbn)
+        
+        public async Task<ActionResult<Book>> GetBookByIsbn(string isbn)
         {
-           try
+            var result = new List<Book>();
+            try
            {
                var livro = await _bookRepository.GetBookByIsbn(isbn);
                if (livro == null)
                {
-                   return NotFound("Não existe o livro a ser pesquisado");
+                    return new BadRequestResult();
                }
 
                if (isbn.Length != 13)
                 {
-                    return BadRequestException("Quantidade de caracteres não correspondem ao pedido");
+                    return new BadRequestResult();
                 }
 
-               return livro;
-           }
+                return new OkObjectResult(livro);
+            }
            catch (Exception)
            {
-               return StatusCode(500, "Ocorreu um erro interno.");
+                throw;
            }
         }
+         
 
-        public async Task<List<Book>> PostBookAsync([FromBody] Book book) 
+        public async Task<ActionResult<Book>> PostBookAsync([FromBody] Book book)
         {
+            
             try
             {
                 if (book.ISBN.Length != 13 || book.Name == null || book.Price < 0)
                 {
-                    return BadRequestException("Os campos precisam ser escritos de forma correta");
+                    return new BadRequestResult();
                 }
                 var responsta = await _bookRepository.PostNewBook(book);
-                return Ok("Livro adicionado com sucesso");
+                return new OkObjectResult(responsta);
             }
             catch (Exception)
             {
-
-                return StatusCode(500, "Ocorreu um erro interno.");
+                throw;
             }
         }
-
-
-        private List<Book> BadRequestException(string v)
+        /*
+        public List<Book> BadRequestException(string v)
         {
             throw new NotImplementedException();
         }
 
-        private List<Book> Ok(string v)
+        public List<Book> Ok(string v)
         {
             throw new NotImplementedException();
         }
 
-        private List<Book> StatusCode(int v1, string v2)
+        public List<Book> StatusCode(int v1, string v2)
         {
             throw new NotImplementedException();
         }
 
-        private List<Book> NotFound(string v)
+        public List<Book> NotFound(string v)
         {
             throw new NotImplementedException();
         }
-
-
-
-
-
-
+        */
     }
 }
