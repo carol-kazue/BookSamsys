@@ -44,7 +44,18 @@ namespace webApiBookSamsys.Infrastructure.Repository
              _context.SaveChanges();
             return book;
         }
+        public async Task<Book> EditOneBook(string isbn, Book book)
+        {
+            var livroEditado = _context.Books.FirstOrDefault(l => l.ISBN == isbn);
+            livroEditado.ISBN = book.ISBN;
+            livroEditado.Name = book.Name;
+            livroEditado.Price = book.Price;
+           
 
+            //_context.Entry(livroEditado).State= (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
+            _context.SaveChanges();
+            return livroEditado;
+        }
 
 
     }

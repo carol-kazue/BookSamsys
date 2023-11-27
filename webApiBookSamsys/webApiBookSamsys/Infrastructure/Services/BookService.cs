@@ -103,5 +103,57 @@ namespace webApiBookSamsys.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<ActionResult> EditBook(string isbn, Book book)
+        {
+            try
+            {
+                var livroExiste = await _bookRepository.GetBookByIsbn(isbn);
+                if (livroExiste == null)
+                {
+                    return new NoContentResult();
+                }
+                else
+                {
+                    if(book.ISBN.Length != 13 || book.Name == null || book.Price < 0)
+                    {
+                        return new BadRequestResult();
+                    }
+                    var livroEditado = await _bookRepository.EditOneBook(isbn, book);
+                    return new OkObjectResult(livroEditado);
+                   
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            /*
+
+            if (id != book.id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(book).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BookExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            */
+        }
     }
 }

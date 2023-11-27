@@ -56,46 +56,12 @@ namespace webApiBookSamsys.Controllers
             return await _bookService.RemoveBook(isbn);
         }
 
-        /*
-
-             // PUT: api/Books/5
-             // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-             [HttpPut("{id}")]
-             public async Task<IActionResult> PutBook(long id, Book book)
-             {
-                 if (id != book.id)
-                 {
-                     return BadRequest();
-                 }
-
-                 _context.Entry(book).State = EntityState.Modified;
-
-                 try
-                 {
-                     await _context.SaveChangesAsync();
-                 }
-                 catch (DbUpdateConcurrencyException)
-                 {
-                     if (!BookExists(id))
-                     {
-                         return NotFound();
-                     }
-                     else
-                     {
-                         throw;
-                     }
-                 }
-
-                 return NoContent();
-             }
-
-
-
-
-             private bool BookExists(long id)
-             {
-                 return (_context.Books?.Any(e => e.id == id)).GetValueOrDefault();
-             }
-             */
+        // PUT: api/Books/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{isbn}")]
+        public async Task<ActionResult> PutBook(string isbn, [FromBody] Book book) 
+        {
+            return await _bookService.EditBook(isbn, book);
+        }
     }
 }
