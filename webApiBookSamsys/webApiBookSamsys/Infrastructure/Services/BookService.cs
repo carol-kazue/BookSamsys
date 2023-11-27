@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
 using System.Net.Mime;
 using Azure;
+using NuGet.LibraryModel;
 
 namespace webApiBookSamsys.Infrastructure.Services
 {
@@ -28,7 +29,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                 var livros = await _bookRepository.GetBooksAsync();
                 if (livros == null)
                 {
-                    return new NoContentResult();
+                    return new NotFoundObjectResult("Não existe livro na lista");
                 }
                 return new OkObjectResult(livros);
             }
@@ -46,12 +47,12 @@ namespace webApiBookSamsys.Infrastructure.Services
                 var livro = await _bookRepository.GetBookByIsbn(isbn);
                 if (livro == null)
                 {
-                    return new NoContentResult();
+                    return new NotFoundObjectResult("Livro Não existe");
                 }
 
                 if (isbn.Length != 13)
                 {
-                    return new BadRequestResult();
+                    return new NotFoundObjectResult("O ISBN precisa ter 13 caracteres");
                 }
 
                 return new OkObjectResult(livro);
@@ -68,13 +69,19 @@ namespace webApiBookSamsys.Infrastructure.Services
 
             try
             {
-                if (book.ISBN.Length == 13 && book.Name != null && book.Price > 0)
+                var livroExiste = await _bookRepository.GetBookByIsbn(book.ISBN);
+                if(livroExiste.Value == null)
                 {
-                    var responsta = await _bookRepository.PostNewBook(book);
-                    return new OkObjectResult(responsta);
-                    
+                    if (book.ISBN.Length == 13 && book.Name != null && book.Price > 0)
+                    {
+                        var responsta = await _bookRepository.PostNewBook(book);
+                        return new OkObjectResult(responsta);
+
+                    }
+                    return new BadRequestResult();
                 }
-                return new BadRequestResult();
+                
+                return new NotFoundObjectResult("Livro já existe");
             }
             catch (Exception)
             {
@@ -83,20 +90,25 @@ namespace webApiBookSamsys.Infrastructure.Services
         }
 
 
-        public async Task<ActionResult<List<Book>>> RemoveBook(string isbn)
+        public async Task<ActionResult<Book>> RemoveBook(string isbn)
         {
             try
             {
-                var livro = await _bookRepository.GetBookByIsbn(isbn);
-                if (livro.Count != 0 )
+                if (isbn.Length != 13)
                 {
-                    
+                    return new NotFoundObjectResult("O ISBN precisa ter 13 caracteres");
+                }
+
+                var livro = await _bookRepository.GetBookByIsbn(isbn);
+
+                if (livro.Value != null )
+                {
                     var removerLivro = await _bookRepository.RemoveOneBook(isbn);
                     return new OkObjectResult(removerLivro);
                 }
                 else
                 {
-                    return new BadRequestResult();
+                    return new NotFoundObjectResult("Livro não existe");
                 }
 
             }
@@ -110,16 +122,21 @@ namespace webApiBookSamsys.Infrastructure.Services
         {
             try
             {
-                var livroExiste = await _bookRepository.GetBookByIsbn(isbn);
-                if (livroExiste == null)
+
+                if (isbn.Length != 13)
                 {
-                    return new NoContentResult();
+                    return new NotFoundObjectResult("O ISBN precida ter 13 caracteres");
+                }
+                var livroExiste = await _bookRepository.GetBookByIsbn(isbn);
+                if (livroExiste.Value == null)
+                {
+                    return new NotFoundObjectResult("Livro não existe");
                 }
                 else
                 {
-                    if(book.ISBN.Length != 13 || book.Name == null || book.Price < 0)
+                    if(book.ISBN != livroExiste.Value.ISBN || book.Name == null || book.Price < 0)
                     {
-                        return new BadRequestResult();
+                        return new NotFoundObjectResult("Os Campos precisam ser preenchidos corretamente");
                     }
                     var livroEditado = await _bookRepository.EditOneBook(isbn, book);
                     return new OkObjectResult(livroEditado);

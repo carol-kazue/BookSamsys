@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using webApiBookSamsys.Infrastructure.Entities;
 using System.Linq;
+using NuGet.Versioning;
 
 namespace webApiBookSamsys.Infrastructure.Repository
 {
@@ -19,9 +20,9 @@ namespace webApiBookSamsys.Infrastructure.Repository
             return  _context.Books.ToList();
         }
         
-        public async Task<List<Book>> GetBookByIsbn(string isbn)
+        public async Task<ActionResult<Book>> GetBookByIsbn(string isbn)
         {
-            return _context.Books.Where(l => l.ISBN.Contains(isbn)).ToList();
+            return _context.Books.SingleOrDefault(t => t.ISBN == isbn);
             //pesquisar porque o async não tá fucionando e porque o FindeDefault tbm não 
         }
 
