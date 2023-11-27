@@ -14,21 +14,21 @@ namespace webApiBookSamsys.Infrastructure.Services
     {
         private readonly BookRepository _bookRepository;
 
-        public BookService (BookRepository bookRepository)
+        public BookService(BookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
-       
-        public async Task<ActionResult<Book>>GetBooks()    
+
+        public async Task<ActionResult<Book>> GetBooks()
         {
-           // string errorMessage = "Ocorreu um erro enquanto era buscado o livro";
-            
+            // string errorMessage = "Ocorreu um erro enquanto era buscado o livro";
+
             try
             {
                 var livros = await _bookRepository.GetBooksAsync();
                 if (livros == null)
                 {
-                    return new BadRequestResult();
+                    return new NoContentResult();
                 }
                 return new OkObjectResult(livros);
             }
@@ -38,35 +38,34 @@ namespace webApiBookSamsys.Infrastructure.Services
             }
 
         }
-        
+
         public async Task<ActionResult<Book>> GetBookByIsbn(string isbn)
         {
-            var result = new List<Book>();
             try
-           {
-               var livro = await _bookRepository.GetBookByIsbn(isbn);
-               if (livro == null)
-               {
-                    return new BadRequestResult();
-               }
+            {
+                var livro = await _bookRepository.GetBookByIsbn(isbn);
+                if (livro == null)
+                {
+                    return new NoContentResult();
+                }
 
-               if (isbn.Length != 13)
+                if (isbn.Length != 13)
                 {
                     return new BadRequestResult();
                 }
 
                 return new OkObjectResult(livro);
             }
-           catch (Exception)
-           {
+            catch (Exception)
+            {
                 throw;
-           }
+            }
         }
-         
+
 
         public async Task<ActionResult<Book>> PostBookAsync([FromBody] Book book)
         {
-            
+
             try
             {
                 if (book.ISBN.Length != 13 || book.Name == null || book.Price < 0)
@@ -81,26 +80,28 @@ namespace webApiBookSamsys.Infrastructure.Services
                 throw;
             }
         }
-        /*
-        public List<Book> BadRequestException(string v)
-        {
-            throw new NotImplementedException();
-        }
 
-        public List<Book> Ok(string v)
-        {
-            throw new NotImplementedException();
-        }
 
-        public List<Book> StatusCode(int v1, string v2)
+        public async Task<ActionResult<Book>> RemoveBook(string isbn)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var livro = await _bookRepository.GetBookByIsbn(isbn);
+                if (livro == null)
+                {
+                    return new NoContentResult();
+                }
+                else
+                {
+                    var removerLivro = await _bookRepository.RemoveOneBook(isbn);
+                    return new OkObjectResult(removerLivro);
+                }
 
-        public List<Book> NotFound(string v)
-        {
-            throw new NotImplementedException();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
-        */
     }
 }

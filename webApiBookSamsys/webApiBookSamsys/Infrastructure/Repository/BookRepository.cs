@@ -26,7 +26,7 @@ namespace webApiBookSamsys.Infrastructure.Repository
         }
 
          public async Task<Book> PostNewBook([FromBody] Book newBook)   
-        {
+         {
             _context.Books.Add(newBook);
 
             // Salvando as alterações e esperando a conclusão da operação assíncrona
@@ -34,7 +34,18 @@ namespace webApiBookSamsys.Infrastructure.Repository
 
             // Retorna o livro adicionado (incluindo propriedades atualizadas, como a chave primária, se houver)
             return newBook;
+         }
+        
+        public async Task<Book> RemoveOneBook(string isbn)
+        {
+            var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
+            //var book = _context.Books.Find(isbn);
+             _context.Books.Remove(book);
+             _context.SaveChanges();
+            return book;
         }
-       
+
+
+
     }
 }

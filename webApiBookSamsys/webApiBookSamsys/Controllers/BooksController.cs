@@ -45,9 +45,16 @@ namespace webApiBookSamsys.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Book>> PostBook([FromBody] Book book)
-          {
+         {
               return await _bookService.PostBookAsync(book);
-          }
+         }
+
+        // DELETE: api/Books/5
+        [HttpDelete("{isbn}")]
+        public async Task<ActionResult<Book>> DeleteBook(string isbn)    
+        {
+            return await _bookService.RemoveBook(isbn);
+        }
 
         /*
 
