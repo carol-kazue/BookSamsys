@@ -25,7 +25,7 @@ namespace webApiBookSamsys.Infrastructure.Repository
             //pesquisar porque o async não tá fucionando e porque o FindeDefault tbm não 
         }
 
-         public async Task<Book> PostNewBook(Book newBook)   
+         public async Task<List<Book>> PostNewBook([FromBody] Book newBook)   
         {
             _context.Books.Add(newBook);
 

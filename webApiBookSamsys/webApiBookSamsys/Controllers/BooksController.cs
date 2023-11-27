@@ -40,7 +40,7 @@ namespace webApiBookSamsys.Controllers
         // POST: api/Book
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<List<Book>> PostBook(Book book)
+        public async Task<List<Book>> PostBook([FromBody] Book book)
         {
             return await _bookService.PostBookAsync(book);
         }

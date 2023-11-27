@@ -60,7 +60,7 @@ namespace webApiBookSamsys.Infrastructure.Services
            }
         }
 
-        public async Task<List<Book>> PostBookAsync(Book book) 
+        public async Task<List<Book>> PostBookAsync([FromBody] Book book) 
         {
             try
             {
