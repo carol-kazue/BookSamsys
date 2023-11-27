@@ -68,12 +68,13 @@ namespace webApiBookSamsys.Infrastructure.Services
 
             try
             {
-                if (book.ISBN.Length != 13 || book.Name == null || book.Price < 0)
+                if (book.ISBN.Length == 13 && book.Name != null && book.Price > 0)
                 {
-                    return new BadRequestResult();
+                    var responsta = await _bookRepository.PostNewBook(book);
+                    return new OkObjectResult(responsta);
+                    
                 }
-                var responsta = await _bookRepository.PostNewBook(book);
-                return new OkObjectResult(responsta);
+                return new BadRequestResult();
             }
             catch (Exception)
             {
@@ -82,19 +83,20 @@ namespace webApiBookSamsys.Infrastructure.Services
         }
 
 
-        public async Task<ActionResult<Book>> RemoveBook(string isbn)
+        public async Task<ActionResult<List<Book>>> RemoveBook(string isbn)
         {
             try
             {
                 var livro = await _bookRepository.GetBookByIsbn(isbn);
-                if (livro == null)
+                if (livro.Count != 0 )
                 {
-                    return new NoContentResult();
+                    
+                    var removerLivro = await _bookRepository.RemoveOneBook(isbn);
+                    return new OkObjectResult(removerLivro);
                 }
                 else
                 {
-                    var removerLivro = await _bookRepository.RemoveOneBook(isbn);
-                    return new OkObjectResult(removerLivro);
+                    return new BadRequestResult();
                 }
 
             }
@@ -129,31 +131,6 @@ namespace webApiBookSamsys.Infrastructure.Services
                 throw;
             }
 
-            /*
-
-            if (id != book.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(book).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            */
         }
     }
 }

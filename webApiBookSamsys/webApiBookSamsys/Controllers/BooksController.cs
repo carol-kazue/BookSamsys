@@ -51,7 +51,7 @@ namespace webApiBookSamsys.Controllers
 
         // DELETE: api/Books/5
         [HttpDelete("{isbn}")]
-        public async Task<ActionResult<Book>> DeleteBook(string isbn)    
+        public async Task<ActionResult<List<Book>>> DeleteBook(string isbn)    
         {
             return await _bookService.RemoveBook(isbn);
         }
