@@ -55,7 +55,6 @@ namespace webApiBookSamsys.Infrastructure.Services
             try
             {
                 var livroExiste = await _bookRepository.BookExists(isbn);   
-               // var livro = await _bookRepository.GetBookByIsbn(isbn);
                 if (livroExiste == null)
                 {
                     response.Message = errorMessage;
@@ -78,24 +77,31 @@ namespace webApiBookSamsys.Infrastructure.Services
             }
         }
 
-        public async Task<MessangingHelper<Book>> PostBookAsync([FromBody] Book book)
+        public async Task<MessangingHelper<BookDTO>> PostBookAsync([FromBody] BookDTO book)
         {
-
+            string errorMessage = "Livro já existe";
+            string badRequest = "Preencha os campos corretamente";
+            string okMessage = "Livro criado com sucesso";
+            MessangingHelper<BookDTO> response = new();
             try
             {
-                var livroExiste = await _bookRepository.GetBookByIsbn(book.ISBN);
-                if(livroExiste.Value == null)
+                var livroExiste = await _bookRepository.BookExists(book.ISBN);
+                if(livroExiste == null)
                 {
                     if (book.ISBN.Length == 13 && book.Name != null && book.Price > 0)
                     {
-                        var responsta = await _bookRepository.PostNewBook(book);
-                        return new OkObjectResult(responsta);
+                        var newBook = await _bookRepository.PostNewBook(book);
+                        response.Message = okMessage;
+                        response.Obj = newBook;
+                        response.Success = true;
+                        return response;
 
                     }
-                    return new BadRequestResult();
+                    response.Message = badRequest;
+                    return response;
                 }
-                
-                return new NotFoundObjectResult("Livro já existe");
+                response.Message = errorMessage;
+                return response;
             }
             catch (Exception)
             {

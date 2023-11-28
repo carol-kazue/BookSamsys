@@ -46,23 +46,17 @@ namespace webApiBookSamsys.Infrastructure.Repository
             return bookDTO;
             
         }
-        /*
-         *BookExists método que retorna se o livro existe, ele está como suporte para fazer as validações no service
-         * ajuda a mapear as propriedades de book para bookDTO
-         */
-        public async Task<Book> BookExists(string isbn)
-        {
-            var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
-            return book;
-        }
-        public async Task<Book> PostNewBook([FromBody] Book newBook)   
+       
+        public async Task<BookDTO> PostNewBook([FromBody] BookDTO newBook)   
          {
-            _context.Books.Add(newBook);
-
-            // Salvando as alterações e esperando a conclusão da operação assíncrona
+            var bookDTO = new Book
+            {
+                ISBN = newBook.ISBN,
+                Name = newBook.Name,
+                Price = newBook.Price,
+            };
+           _context.Books.Add(bookDTO);
            _context.SaveChanges();
-
-            // Retorna o livro adicionado (incluindo propriedades atualizadas, como a chave primária, se houver)
             return newBook;
          }
         
@@ -86,7 +80,15 @@ namespace webApiBookSamsys.Infrastructure.Repository
             _context.SaveChanges();
             return livroEditado;
         }
+        /*
+        *BookExists método que retorna se o livro existe, ele está como suporte para fazer as validações no service
+        * ajuda a mapear as propriedades de book para bookDTO
+        */
 
-
+        public async Task<Book> BookExists(string isbn)
+        {
+            var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
+            return book;
+        }
     }
 }
