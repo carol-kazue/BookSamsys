@@ -10,6 +10,8 @@ namespace webApiBookSamsys.Infrastructure.Mappers
         public MappingProfile()
         {
             CreateMap<Book, BookDTO>();
+
+            CreateMap<BookDTO, Book>();
         }
 
     }

@@ -19,34 +19,22 @@ namespace webApiBookSamsys.Infrastructure.Repository
       
         public async Task<List<Book>> GetBooksAsync()
         {
-            var books = _context.Books.ToList();
+            var books = await _context.Books.ToListAsync();
             return books;
         }
         //pesquisar porque o async não tá fucionando e porque o FindeDefault tbm não 
-        public async Task<BookDTO> GetBookByIsbn(string isbn)
+        public async Task<Book> GetBookByIsbn(string isbn)  
         {
             // .Find é usada para encontrar chave primária o que não é o caso aqui 
-            var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
-            var bookDTO = new BookDTO
-            {
-                ISBN = book.ISBN,
-                Name = book.Name,
-                Price = book.Price,
-            };
-            return bookDTO;
+            var book = await _context.Books.FirstOrDefaultAsync(b => b.ISBN == isbn);
+            return book;
             
         }
        
-        public async Task<BookDTO> PostNewBook([FromBody] BookDTO newBook)   
+        public async Task<Book> PostNewBook([FromBody] Book newBook)   
          {
-            var bookDTO = new Book
-            {
-                ISBN = newBook.ISBN,
-                Name = newBook.Name,
-                Price = newBook.Price,
-            };
-           _context.Books.Add(bookDTO);
-           _context.SaveChanges();
+            await _context.Books.AddAsync(newBook);
+            await _context.SaveChangesAsync();
             return newBook;
          }
         
@@ -58,16 +46,15 @@ namespace webApiBookSamsys.Infrastructure.Repository
                 ISBN = book.ISBN,
                 Name = book.Name,
                 Price = book.Price,
-                // Adicione outras propriedades conforme necessário
             };
 
-            // Remover o livro do contexto
+            
             _context.Books.Remove(book);
 
-            // Salvar as alterações no banco de dados
+           
             await _context.SaveChangesAsync();
 
-            // Retornar as informações do livro removido
+            
             return bookDTO;
         }
         public async Task<BookDTO> EditOneBook(string isbn, BookDTO book)

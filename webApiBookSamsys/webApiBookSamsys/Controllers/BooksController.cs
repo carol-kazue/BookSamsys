@@ -45,9 +45,9 @@ namespace webApiBookSamsys.Controllers
         // POST: api/livro
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("livro")]
-        public async Task<MessangingHelper<BookDTO>> PostBook([FromBody] BookDTO book)
+        public async Task<MessangingHelper<BookDTO>> PostBook([FromBody] BookDTO bookDTO)
         {
-              return await _bookService.PostBookAsync(book);
+              return await _bookService.PostBookAsync(bookDTO);
         }
         
         // DELETE: api/1235467895412

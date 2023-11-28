@@ -58,7 +58,7 @@ namespace webApiBookSamsys.Infrastructure.Services
             MessangingHelper<BookDTO> response = new();
             try
             {
-                var livroExiste = await _bookRepository.BookExists(isbn);   
+                var livroExiste = await _bookRepository.GetBookByIsbn(isbn);   
                 if (livroExiste == null)
                 {
                     response.Message = errorMessage;
@@ -69,9 +69,9 @@ namespace webApiBookSamsys.Infrastructure.Services
                     response.Message = badRequest;
                     return response;
                 }
-                var livro = await _bookRepository.GetBookByIsbn(isbn);  
+                var bookDetailsDTO = _mapper.Map<BookDTO>(livroExiste);
                 response.Message = okMessage;
-                response.Obj = livro;
+                response.Obj = bookDetailsDTO;
                 response.Success = true;
                 return response;
             }
@@ -81,7 +81,7 @@ namespace webApiBookSamsys.Infrastructure.Services
             }
         }
 
-        public async Task<MessangingHelper<BookDTO>> PostBookAsync([FromBody] BookDTO book)
+        public async Task<MessangingHelper<BookDTO>> PostBookAsync([FromBody] BookDTO bookDTO) 
         {
             string errorMessage = "Livro já existe";
             string badRequest = "Preencha os campos corretamente";
@@ -89,14 +89,15 @@ namespace webApiBookSamsys.Infrastructure.Services
             MessangingHelper<BookDTO> response = new();
             try
             {
-                var livroExiste = await _bookRepository.BookExists(book.ISBN);
+                var livroExiste = await _bookRepository.GetBookByIsbn(bookDTO.ISBN);
                 if(livroExiste == null)
                 {
-                    if (book.ISBN.Length == 13 && book.Name != null && book.Price > 0)
+                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name != null && bookDTO.Price > 0)
                     {
-                        var newBook = await _bookRepository.PostNewBook(book);
+                        var mappedBook = _mapper.Map<Book>(bookDTO);        
+                        var bookAdd = await _bookRepository.PostNewBook(mappedBook);   
                         response.Message = okMessage;
-                        response.Obj = newBook;
+                        response.Obj = _mapper.Map<BookDTO>(bookAdd);
                         response.Success = true;
                         return response;
 
