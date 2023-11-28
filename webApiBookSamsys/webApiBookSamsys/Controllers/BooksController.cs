@@ -42,21 +42,21 @@ namespace webApiBookSamsys.Controllers
          }
          
         
-        // POST: api/Book
+        // POST: api/livro
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("livro")]
         public async Task<MessangingHelper<BookDTO>> PostBook([FromBody] BookDTO book)
         {
               return await _bookService.PostBookAsync(book);
         }
-        /*
-        // DELETE: api/Books/5
+        
+        // DELETE: api/1235467895412
         [HttpDelete("{isbn}")]
-        public async Task<ActionResult<Book>> DeleteBook(string isbn)    
+        public async Task<MessangingHelper<BookDTO>> DeleteBook(string isbn)    
         {
             return await _bookService.RemoveBook(isbn);
         }
-
+        /*
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{isbn}")]

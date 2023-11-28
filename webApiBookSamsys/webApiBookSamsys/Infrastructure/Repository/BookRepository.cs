@@ -60,13 +60,25 @@ namespace webApiBookSamsys.Infrastructure.Repository
             return newBook;
          }
         
-        public async Task<Book> RemoveOneBook(string isbn)
+        public async Task<BookDTO> RemoveOneBook(string isbn)
         {
             var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
-            //var book = _context.Books.Find(isbn);
-             _context.Books.Remove(book);
-             _context.SaveChanges();
-            return book;
+            var bookDTO = new BookDTO
+            {
+                ISBN = book.ISBN,
+                Name = book.Name,
+                Price = book.Price,
+                // Adicione outras propriedades conforme necessário
+            };
+
+            // Remover o livro do contexto
+            _context.Books.Remove(book);
+
+            // Salvar as alterações no banco de dados
+            await _context.SaveChangesAsync();
+
+            // Retornar as informações do livro removido
+            return bookDTO;
         }
         public async Task<Book> EditOneBook(string isbn, Book book)
         {

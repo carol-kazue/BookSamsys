@@ -109,27 +109,36 @@ namespace webApiBookSamsys.Infrastructure.Services
             }
         }
 
-        /*
-       public async Task<ActionResult<Book>> RemoveBook(string isbn)
+        
+       public async Task<MessangingHelper<BookDTO>> RemoveBook(string isbn)
        {
-           try
+            string errorMessage = "O ISBN precisa ter 13 caracteres";
+            string notFound = "Livro não existe";    
+            string okMessage = "Livro removido com sucesso";
+            MessangingHelper<BookDTO> response = new();
+            try
            {
                if (isbn.Length != 13)
                {
-                   return new NotFoundObjectResult("O ISBN precisa ter 13 caracteres");
-               }
+                    response.Message = errorMessage;
+                    return response;
+                }
 
-               var livro = await _bookRepository.GetBookByIsbn(isbn);
+               var livro = await _bookRepository.BookExists(isbn);
 
-               if (livro.Value != null )
+               if (livro != null )
                {
                    var removerLivro = await _bookRepository.RemoveOneBook(isbn);
-                   return new OkObjectResult(removerLivro);
-               }
+                    response.Message = okMessage;
+                    response.Obj = removerLivro;
+                    response.Success = true;
+                    return response;
+                }
                else
                {
-                   return new NotFoundObjectResult("Livro não existe");
-               }
+                    response.Message = notFound;
+                    return response;
+                }
 
            }
            catch (Exception)
@@ -137,7 +146,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                throw;
            }
        }
-
+        /*
        public async Task<ActionResult> EditBook(string isbn, Book book)
        {
            try
