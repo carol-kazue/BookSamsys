@@ -182,9 +182,12 @@ namespace webApiBookSamsys.Infrastructure.Services
                         response.Message = errorMessageValues;
                         return response; 
                    }
-                   var livroEditado = await _bookRepository.EditOneBook(isbn, book);
+
+                    var mappedBook = _mapper.Map<Book>(book);
+                    var livroEditado = await _bookRepository.EditOneBook(isbn, mappedBook);   
+
                     response.Message = okMessage;
-                    response.Obj = livroEditado;
+                    response.Obj = _mapper.Map<BookDTO>(livroEditado);
                     response.Success = true;
                     return response;
                 }
