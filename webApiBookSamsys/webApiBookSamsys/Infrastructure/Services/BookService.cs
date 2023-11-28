@@ -129,13 +129,15 @@ namespace webApiBookSamsys.Infrastructure.Services
                     return response;
                 }
 
-               var livro = await _bookRepository.BookExists(isbn);
+               var livro = await _bookRepository.GetBookByIsbn(isbn);
 
                if (livro != null )
                {
-                   var removerLivro = await _bookRepository.RemoveOneBook(isbn);
+                    var removerLivro = await _bookRepository.RemoveOneBook(isbn);
+                    // Map Book entity to BookDTO
+                    var mappedBook = _mapper.Map<BookDTO>(removerLivro);
                     response.Message = okMessage;
-                    response.Obj = removerLivro;
+                    response.Obj = mappedBook;
                     response.Success = true;
                     return response;
                 }
