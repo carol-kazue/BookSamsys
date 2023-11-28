@@ -56,14 +56,14 @@ namespace webApiBookSamsys.Controllers
         {
             return await _bookService.RemoveBook(isbn);
         }
-        /*
+        
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{isbn}")]
-        public async Task<ActionResult> PutBook(string isbn, [FromBody] Book book) 
+        public async Task<MessangingHelper<BookDTO>> PutBook(string isbn, [FromBody] BookDTO book) 
         {
             return await _bookService.EditBook(isbn, book);
         }
-        */
+        
     }
 }

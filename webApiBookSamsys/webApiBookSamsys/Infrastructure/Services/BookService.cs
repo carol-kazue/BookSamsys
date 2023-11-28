@@ -146,31 +146,41 @@ namespace webApiBookSamsys.Infrastructure.Services
                throw;
            }
        }
-        /*
-       public async Task<ActionResult> EditBook(string isbn, Book book)
+       
+       public async Task<MessangingHelper<BookDTO>> EditBook(string isbn, BookDTO book)
        {
            try
            {
+                string errorMessage = "O ISBN precisa ter 13 caracteres";
+                string errorMessageValues = "Os Campos precisam ser preenchidos corretamente";
+                string notFound = "Livro não existe";
+                string okMessage = "Livro editado com sucesso";
+                MessangingHelper<BookDTO> response = new();
 
-               if (isbn.Length != 13)
+                if (isbn.Length != 13)
                {
-                   return new NotFoundObjectResult("O ISBN precida ter 13 caracteres");
-               }
-               var livroExiste = await _bookRepository.GetBookByIsbn(isbn);
-               if (livroExiste.Value == null)
+                    response.Message = errorMessage;
+                    return response;
+                }
+               var livroExiste = await _bookRepository.BookExists(isbn);
+               if (livroExiste == null)
                {
-                   return new NotFoundObjectResult("Livro não existe");
-               }
+                    response.Message = notFound;
+                    return response;
+                }
                else
                {
-                   if(book.ISBN != livroExiste.Value.ISBN || book.Name == null || book.Price < 0)
+                   if(book.ISBN != livroExiste.ISBN || book.Name == null || book.Price <= 0)
                    {
-                       return new NotFoundObjectResult("Os Campos precisam ser preenchidos corretamente");
+                        response.Message = errorMessageValues;
+                        return response; 
                    }
                    var livroEditado = await _bookRepository.EditOneBook(isbn, book);
-                   return new OkObjectResult(livroEditado);
-
-               }
+                    response.Message = okMessage;
+                    response.Obj = livroEditado;
+                    response.Success = true;
+                    return response;
+                }
            }
            catch (Exception)
            {
@@ -178,6 +188,6 @@ namespace webApiBookSamsys.Infrastructure.Services
            }
 
        }
-       */
+      
     }
 }

@@ -80,17 +80,22 @@ namespace webApiBookSamsys.Infrastructure.Repository
             // Retornar as informações do livro removido
             return bookDTO;
         }
-        public async Task<Book> EditOneBook(string isbn, Book book)
+        public async Task<BookDTO> EditOneBook(string isbn, BookDTO book)
         {
             var livroEditado = _context.Books.FirstOrDefault(l => l.ISBN == isbn);
             livroEditado.ISBN = book.ISBN;
             livroEditado.Name = book.Name;
             livroEditado.Price = book.Price;
-           
 
-            //_context.Entry(livroEditado).State= (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
             _context.SaveChanges();
-            return livroEditado;
+            var livroEditadoDTO = new BookDTO
+            {
+                ISBN = livroEditado.ISBN,
+                Name = livroEditado.Name,
+                Price = livroEditado.Price,
+            };
+
+            return livroEditadoDTO;
         }
         /*
         *BookExists método que retorna se o livro existe, ele está como suporte para fazer as validações no service
