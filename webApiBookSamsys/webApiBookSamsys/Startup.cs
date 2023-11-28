@@ -5,6 +5,8 @@ using webApiBookSamsys.Infrastructure.Repository;
 using webApiBookSamsys.Infrastructure.Services;
 using Newtonsoft.Json;
 using System.Text.Json;
+using webApiBookSamsys.Infrastructure.Mappers;
+using AutoMapper; 
 
 namespace webApiBookSamsys
 {
@@ -22,7 +24,8 @@ namespace webApiBookSamsys
             services.AddScoped<BookRepository>();
             services.AddScoped<BookService>();
             //services.AddScoped<BooksController>();
-            
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

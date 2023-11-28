@@ -17,20 +17,10 @@ namespace webApiBookSamsys.Infrastructure.Repository
             _context = context;
         }
       
-        public async Task<List<BookDTO>> GetBooksAsync()
+        public async Task<List<Book>> GetBooksAsync()
         {
             var books = _context.Books.ToList();
-
-            // conversão de Book para BookDTO usando Select
-            var booksDTO = books.Select(book => new BookDTO
-            {
-                // Mapeia as propriedades de Book para BookDTO conforme necessário
-                // aqui provavelmente vai a lógica para ver os autores talvez um inner join no próximo passo
-                ISBN = book.ISBN,
-                Name = book.Name,
-                Price= book.Price,
-            }).ToList();
-            return booksDTO;
+            return books;
         }
         //pesquisar porque o async não tá fucionando e porque o FindeDefault tbm não 
         public async Task<BookDTO> GetBookByIsbn(string isbn)

@@ -9,16 +9,19 @@ using System.Net.Mime;
 using Azure;
 using NuGet.LibraryModel;
 using webApiBookSamsys.Infrastructure.Entities.DTOs;
+using AutoMapper;
 
 namespace webApiBookSamsys.Infrastructure.Services
 {
     public class BookService
     {
         private readonly BookRepository _bookRepository;
+        private readonly IMapper _mapper;
 
-        public BookService(BookRepository bookRepository)
+        public BookService(BookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
         public async Task<MessangingHelper<List<BookDTO>>> GetBooks()
@@ -28,14 +31,15 @@ namespace webApiBookSamsys.Infrastructure.Services
             MessangingHelper<List<BookDTO>> response = new();
             try
             {
-                var livros = await _bookRepository.GetBooksAsync();
-                if (livros == null)
+                var livrosExistem = await _bookRepository.GetBooksAsync();  
+                if (livrosExistem == null)
                 {
                    response.Message = errorMessage;
                     return response;
                 }
+                var livrosDTO = _mapper.Map<List<BookDTO>>(livrosExistem);
                 response.Message = okMessage;
-                response.Obj = livros;
+                response.Obj = livrosDTO;
                 response.Success = true;
                 return response;
             }

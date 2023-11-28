@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "IJ6TERltmDZGyud6jsr4Z25wq2n1CQ5Foz0NxZVCoBwLE/nY8Vy/Cpe78Y92aMZ7+3+Aac1HJSUVqGrPObnOAA==",
+  "dgSpecHash": "8YFg/EFaaNioHsjktLYwAymUMB+47CNvjWsx3QskJi2r7412Ku3Uf8InpMoHRQNAxky57nRj9Um+z6RNUHG3HQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Utilizador\\Documents\\GitHub\\BookSamsys\\webApiBookSamsys\\webApiBookSamsys\\webApiBookSamsys.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Utilizador\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Utilizador\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Utilizador\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Utilizador\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\Utilizador\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
