@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using webApiBookSamsys.Infrastructure.Entities;
 using webApiBookSamsys.Infrastructure.MessagingHelper;
 using webApiBookSamsys.Infrastructure.Services;
+using webApiBookSamsys.Infrastructure.Entities.DTOs;
 
 
 namespace webApiBookSamsys.Controllers
@@ -27,7 +28,7 @@ namespace webApiBookSamsys.Controllers
         
         // GET: api/livros
         [HttpGet("livros")]
-        public async Task<ActionResult<Book>> GetBooks()
+        public async Task<MessangingHelper<List<BookDTO>>> GetBooks()
         {
             return await _bookService.GetBooks();
         }
@@ -35,20 +36,20 @@ namespace webApiBookSamsys.Controllers
          // GET: api/livros/isbn
          [HttpGet("{isbn}")]
 
-         public async Task<ActionResult<Book>> GetBook(string isbn)      
+         public async Task<MessangingHelper<BookDTO>> GetBook(string isbn)      
          {
              return await _bookService.GetBookByIsbn(isbn);
          }
          
-
+        
         // POST: api/Book
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("livro")]
-        public async Task<ActionResult<Book>> PostBook([FromBody] Book book)
+        public async Task<MessangingHelper<Book>> PostBook([FromBody] Book book)
         {
               return await _bookService.PostBookAsync(book);
         }
-
+        /*
         // DELETE: api/Books/5
         [HttpDelete("{isbn}")]
         public async Task<ActionResult<Book>> DeleteBook(string isbn)    
@@ -63,5 +64,6 @@ namespace webApiBookSamsys.Controllers
         {
             return await _bookService.EditBook(isbn, book);
         }
+        */
     }
 }
