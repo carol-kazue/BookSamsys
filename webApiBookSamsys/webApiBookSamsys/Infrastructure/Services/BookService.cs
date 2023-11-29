@@ -58,15 +58,15 @@ namespace webApiBookSamsys.Infrastructure.Services
             MessangingHelper<BookDTO> response = new();
             try
             {
+                if (isbn.Length != 13)
+                {
+                    response.Message = badRequest;
+                    return response;
+                }
                 var livroExiste = await _bookRepository.GetBookByIsbn(isbn);   
                 if (livroExiste == null)
                 {
                     response.Message = errorMessage;
-                    return response;
-                }
-                if (isbn.Length != 13)
-                {
-                    response.Message = badRequest;
                     return response;
                 }
                 var bookDetailsDTO = _mapper.Map<BookDTO>(livroExiste);
@@ -92,7 +92,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                 var livroExiste = await _bookRepository.GetBookByIsbn(bookDTO.ISBN);
                 if(livroExiste == null)
                 {
-                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name != null && bookDTO.Price > 0)
+                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0)
                     {
                         var mappedBook = _mapper.Map<Book>(bookDTO);        
                         var bookAdd = await _bookRepository.PostNewBook(mappedBook);   
@@ -169,7 +169,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                     response.Message = errorMessage;
                     return response;
                 }
-               var livroExiste = await _bookRepository.BookExists(isbn);
+               var livroExiste = await _bookRepository.GetBookByIsbn(isbn);
                if (livroExiste == null)
                {
                     response.Message = notFound;
@@ -177,7 +177,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                 }
                else
                {
-                   if(book.ISBN != livroExiste.ISBN || book.Name == null || book.Price <= 0)
+                   if(book.ISBN != livroExiste.ISBN || book.Name.Length <=1 || book.Price <= 0)
                    {
                         response.Message = errorMessageValues;
                         return response; 

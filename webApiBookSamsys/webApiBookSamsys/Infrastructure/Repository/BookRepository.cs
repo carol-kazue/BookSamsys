@@ -59,7 +59,7 @@ namespace webApiBookSamsys.Infrastructure.Repository
         * ajuda a mapear as propriedades de book para bookDTO
         */
 
-        public async Task<Book> BookExists(string isbn)
+        public async Task<Book> BooksExists(string isbn)    
         {
             var book = _context.Books.FirstOrDefault(b => b.ISBN == isbn);
             return book;
