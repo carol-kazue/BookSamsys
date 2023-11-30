@@ -45,14 +45,12 @@ namespace webApiBookSamsys.Infrastructure.Repository
             await _context.SaveChangesAsync();
             return book;
         }
-        public async Task<Book> EditOneBook(string isbn, Book book)
+        public async Task<int> EditOneBook()
         {
-            var livroEditado = _context.Books.FirstOrDefault(l => l.ISBN == isbn);
-            livroEditado.Name = book.Name;
-            livroEditado.Price = book.Price;
-            await _context.SaveChangesAsync();
+           
+           var bookUpdate=  await _context.SaveChangesAsync();
 
-            return livroEditado;
+            return bookUpdate;
         }
         /*
         *BookExists método que retorna se o livro existe, ele está como suporte para fazer as validações no service
