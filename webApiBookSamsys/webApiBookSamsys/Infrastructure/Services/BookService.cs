@@ -143,7 +143,7 @@ namespace webApiBookSamsys.Infrastructure.Services
            }
        }
        
-       public async Task<MessangingHelper<BookDTO>> EditBook(string isbn, BookDTO book)
+       public async Task<MessangingHelper<BookDTO>> EditBook(string isbn, BookDTO bookDTO)  
        {
            try
            {
@@ -159,17 +159,19 @@ namespace webApiBookSamsys.Infrastructure.Services
                {
                     response.Message = "Livro não existe";
                     return response;
-                }
+               }
                else
                {
-                   if(book.ISBN != livroExiste.ISBN || book.Name.Length <=1 || book.Price <= 0)
+                   if(bookDTO.ISBN != livroExiste.ISBN || bookDTO.Name.Length <=1 || bookDTO.Price <= 0)
                    {
                         response.Message = "Os Campos precisam ser preenchidos corretamente";
                         return response; 
                    }
 
-                    var mappedBook = _mapper.Map<Book>(book);
-                    var livroEditado = await _bookRepository.EditOneBook();   
+                   // var mappedBook = _mapper.Map<Book>(bookDTO);
+                    livroExiste.UpdateBook(bookDTO.Name, bookDTO.Price);
+                    var livroEditado = await _bookRepository.EditOneBook(livroExiste);
+                    
 
                     response.Message = "Livro editado com sucesso";
                     response.Obj = _mapper.Map<BookDTO>(livroEditado);

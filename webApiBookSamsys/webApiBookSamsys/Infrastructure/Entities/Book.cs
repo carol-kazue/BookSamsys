@@ -19,6 +19,13 @@ namespace webApiBookSamsys.Infrastructure.Entities
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+
+
+        public void UpdateBook(string name, decimal price)
+        {
+            Name = name;
+            Price = price;
+        }
     }
 
 }

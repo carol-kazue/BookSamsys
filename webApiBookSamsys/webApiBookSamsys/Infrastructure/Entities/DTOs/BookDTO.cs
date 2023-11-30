@@ -13,4 +13,8 @@ namespace webApiBookSamsys.Infrastructure.Entities.DTOs
 
         public decimal Price { get; set; }
     }
+
+    
 }
+
+
