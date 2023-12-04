@@ -4,5 +4,5 @@ export type ButtonProps = {
     onClick: MouseEventHandler;
     text: string;
     color: "primary" | "secondary";
-    type: string
+    type: "button" | "submit" | "reset" | undefined
 }
