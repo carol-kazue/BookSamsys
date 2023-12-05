@@ -3,6 +3,6 @@ import {MouseEventHandler} from "react"
 export type ButtonProps = {
     onClick: MouseEventHandler;
     text: string;
-    color: "primary" | "secondary";
+    color: "submit" | "reset";
     type: "button" | "submit" | "reset" | undefined
 }

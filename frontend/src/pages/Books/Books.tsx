@@ -18,9 +18,9 @@ const ActionCell =({book}: {book: BookType}) =>(
       onClick={()=>(console.log(book.name, "deletar"))} 
       text="delete" 
       type="button"
-      color="secondary"
+      color="reset"
     />
-    <Link href="#" text="Edit" color="primary"/>
+    <Link href="#" text="Edit" color="secondary"/>
   </div>
 )
 
@@ -32,7 +32,7 @@ function Books() {
     return (
       <div className="Books">
         <br />
-        <Button text='xxx' type="submit" onClick={()=>{}} color='secondary'></Button>
+        <Button text='xxx' type="submit" onClick={()=>{}} color='reset'></Button>
         <Input type='livro' id='floatingInput' label="Nome do livro" placeholder='Nome do livro'></Input>
         <Input type='livro' id='floatingInput' label="Preço" placeholder='Preço'></Input>
         <Table data={booksTransformer(books)} columns={columns}   />

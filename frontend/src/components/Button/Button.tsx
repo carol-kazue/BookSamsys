@@ -1,6 +1,10 @@
 import { ButtonProps } from "./Button.types";
 
 export const Button = ({color,onClick,text, type}: ButtonProps): JSX.Element => {
-    const bgColor = color==="primary"?"bg-primary":"bg-secondary"
-    return <button onClick={onClick} className={`btn ${bgColor}`} type={type} >{text}</button>
+    const btnCustomStyle = {
+        color: "#fff",  
+        backgroundColor: color === "submit" ? "#FDB901" : "#FD0101",  
+        borderColor: color === "submit" ? "#FDB901" : "#FD0101",  
+    };
+    return <button onClick={onClick} className={`btn btn-custom`} style={btnCustomStyle} type={type} >{text}</button> 
 }
