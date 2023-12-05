@@ -34,7 +34,7 @@ namespace webApiBookSamsys.Controllers
         }
        
          // GET: api/livros/isbn
-         [HttpGet("{isbn}")]
+         [HttpGet("livros/{isbn}")]
 
          public async Task<MessangingHelper<BookDTO>> GetBook(string isbn)      
          {
@@ -44,14 +44,14 @@ namespace webApiBookSamsys.Controllers
         
         // POST: api/livro
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("livro")]
+        [HttpPost("livros")]
         public async Task<MessangingHelper<BookDTO>> PostBook([FromBody] BookDTO bookDTO)
         {
               return await _bookService.PostBookAsync(bookDTO);
         }
         
         // DELETE: api/1235467895412
-        [HttpDelete("{isbn}")]
+        [HttpDelete("livros/{isbn}")]
         public async Task<MessangingHelper<BookDTO>> DeleteBook(string isbn)    
         {
             return await _bookService.RemoveBook(isbn);
@@ -59,7 +59,7 @@ namespace webApiBookSamsys.Controllers
         
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{isbn}")]
+        [HttpPut("livros/{isbn}")]
         public async Task<MessangingHelper<BookDTO>> PutBook(string isbn, [FromBody] BookDTO book) 
         {
             return await _bookService.EditBook(isbn, book);

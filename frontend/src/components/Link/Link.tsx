@@ -7,5 +7,5 @@ export const Link = ({color,href,text}: LinkProps): JSX.Element => {
         backgroundColor: color === "primary" ? "#FDB901" : "#F47E00", 
         borderColor: color === "primary" ? "#FDB901" : "#F47E00", 
     };
-    return <LinkRoute to={href} className={`btn btn-custom}`} style={btnCustomStyle}>{text}</LinkRoute>
+    return <LinkRoute to={href} className={`btn btn-custom`} style={btnCustomStyle}>{text}</LinkRoute>
 }

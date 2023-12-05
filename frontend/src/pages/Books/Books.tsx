@@ -29,6 +29,7 @@ const booksTransformer =(books: BookType[]): BookTableDataType[] => {
 }
 const columns = ['isbn', 'name', 'price', 'action'];
 function Books() {
+  // useState com a lista de livros e useEfect 
     return (
       <div className="Books">
         <br />
