@@ -36,7 +36,16 @@ namespace webApiBookSamsys
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
            
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000") // Substitua pelo URL do seu aplicativo React
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
@@ -49,6 +58,7 @@ namespace webApiBookSamsys
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors("AllowSpecificOrigins");
             }
 
             app.UseHttpsRedirection();

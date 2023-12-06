@@ -1,11 +1,21 @@
 import { API_BASE_PATH, API_BOOK_PATH } from "./constants";
-
-const fetchBook = async () => {
+import axios from 'axios';
+export const fetchBooks = async () => {
     try {
-      const response = await fetch(`${API_BASE_PATH}${API_BOOK_PATH}`);
-      return await response.json();
+      const response = await axios.get(`${API_BASE_PATH}/${API_BOOK_PATH}`);
+      console.log(response)
+      return response.data;
     } catch (error) {
       console.error('Erro ao buscar dados da API:', error);
     } finally {
     }
   };
+
+  export const deleteBook =async (bookId: string) => {
+    try {
+      const response = await axios.delete(`${API_BASE_PATH}/${API_BOOK_PATH}/${bookId}`)
+      return response.data
+    } catch (error) {
+      console.log("Erro ao apagar o livro")
+    }
+  }
