@@ -19,3 +19,13 @@ export const fetchBooks = async () => {
       console.log("Erro ao apagar o livro")
     }
   }
+  export const postBook = async (book: {}) => {
+    try {
+      const response = await axios.post(`${API_BASE_PATH}/${API_BOOK_PATH}`, book);
+      console.log(response)
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao criar livro na API:', error);
+    } finally {
+    }
+  };
