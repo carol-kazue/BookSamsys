@@ -9,38 +9,35 @@ import { BookType } from "../../Types/Books.types";
 import { BookTableDataType } from "./Books.types";
 import { ReactNode } from "react";
 import {deleteBook, fetchBooks, postBook } from "../../service/BookApi";
-/*const books:BookType[] = [
-  { isbn: "1", name: 'Item 1', price: 20.99 },
-  { isbn: "2", name: 'Item 2', price: 15.99 },
-  { isbn: "3", name: 'Item 3', price: 25.99 },
-];*/
-const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void},  ) =>(
+
+const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void, /*onBookByIsbn: (isbn:string)=>void*/} ) =>(
   <div>
     <Button 
       onClick={() => {
         console.log(book.name, "deletar");
-        onDelete(book.isbn);  // Passa o ID do livro para a função de exclusão
+        onDelete(book.isbn);  // Passa o isbn do livro para a função de exclusão
       }} 
       text="Apagar" 
       type="button"
       color="reset"
     />
-    <Link href="#" text="Editar" color="primary"/>
+    <Link href={`editar-livro/${book.isbn}`}
+     text="Editar" color="primary"/>
   </div>
 )
 
-const booksTransformer =(books: BookType[] | null, onDelete:(isbn:string)=>void ): BookTableDataType[] => {
+const booksTransformer =(books: BookType[] | null, onDelete:(isbn:string)=>void): BookTableDataType[] => {
   if(!books){
     return []
   }
-  return books.map((book:BookType):BookTableDataType =>({...book,action: (() => (<ActionCell book={book} onDelete={onDelete} />)) as unknown as ReactNode}))
+  return books.map((book:BookType):BookTableDataType =>({...book,action: (() => (<ActionCell book={book} onDelete={onDelete}/>)) as unknown as ReactNode}))
 }
 const columns = ['isbn', 'name', 'price', 'action'];
+
 function Books() {
-  // useState com a lista de livros e useEfect 
   const [books, setBooks] = useState<BookType[] | null>(null);
   const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: 0 });
-
+  
 
   useEffect(() => {
       fetchBooks().then(result=>{
@@ -48,9 +45,9 @@ function Books() {
       })
     }, 
     []);
-    const handleDelete = async (bookId:string) => {
+    const handleDelete = async (bookIsbn:string) => {
       // Chama a função para excluir o livro
-      await deleteBook(bookId);
+      await deleteBook(bookIsbn);
   
       // Atualiza a lista de livros após a exclusão
       const updatedBooks = await fetchBooks();
@@ -59,13 +56,12 @@ function Books() {
 
     const handlePost =async (book:BookType) => {
       await postBook(book);
-      console.log(book)
+      //console.log(book)
       const updatedBooks = await fetchBooks();
       setNewBook({ isbn: '', name: '', price: 1 })
       setBooks(updatedBooks?.obj);
-      
     }
-  
+
     return (
       <div className="container text-center Books">
         <br />
