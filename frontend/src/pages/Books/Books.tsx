@@ -36,7 +36,7 @@ const columns = ['isbn', 'name', 'price', 'action'];
 
 function Books() {
   const [books, setBooks] = useState<BookType[] | null>(null);
-  const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: 0 });
+  const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
   
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Books() {
       await postBook(book);
       //console.log(book)
       const updatedBooks = await fetchBooks();
-      setNewBook({ isbn: '', name: '', price: 1 })
+      setNewBook({ isbn: '', name: '', price: ''})
       setBooks(updatedBooks?.obj);
     }
 
@@ -86,12 +86,12 @@ function Books() {
           onChange={(e) => setNewBook({ ...newBook, name: e.target.value })}
         ></Input>
         <Input 
-          type='number' 
+          type='text' 
           id='floatingInput' 
           label="Preço" 
           placeholder='Preço' 
           value={newBook.price}
-          onChange={(e) => setNewBook({ ...newBook, price: e.target.valueAsNumber})}
+          onChange={(e) => setNewBook({ ...newBook, price: e.target.value})}
         ></Input>
         <Button text='Adicionar livro' type="submit" onClick={() => handlePost(newBook)} color='submit'></Button>
         

@@ -3,32 +3,33 @@ import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { BookType } from "../../Types/Books.types";
 import { editBook, fetchBook} from "../../service/BookApi";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { NumberMaskOptions } from "../../components/Input/Input.types";
 
+const numberMaskConfig: NumberMaskOptions = {
+  allowDecimal: true, 
+  decimalSymbol: ".",
+  decimalLimit: 2,
+  requireDecimal: false, 
+  prefix: ""
+}
 function EditBook(){
-  const [bookEdit, setBookEdit]= useState<BookType>({ isbn: '' , name: '', price: 0})
   const [book, setBook]= useState<BookType| null>(null);
   const {isbn} = useParams();
+  const history = useNavigate();
 
   const handlePut =async (bookIsbn:string, bookEdit: BookType) => {
     await editBook(bookIsbn,bookEdit)
-    //console.log(bookEdit)
-    setBookEdit({ isbn: '', name: '', price: 1 });
+    // setBook faria sentido aqui se for da vontatde mostrar novamente o os campos do objeto livro (os inputs)
+    //setBook({ isbn: '', name: '', price: '' });
+    history(-1)
   }
-  /*
-  const handleGetByIsbn =async (bookIsbn:string) => {
-    try {
-      const book = await fetchBook(bookIsbn);
-      setBook(book?.obj)
-      console.log(book)
-    } catch (error) {
-      
-    }
-  }*/
+  // chama o get livro espeífico para mostar nas labals os dados do livro e atualiza o estado do objeto 
   useEffect(() => {
     fetchBook(isbn).then(result=>{
       console.log(result.obj)
       setBook(result?.obj)
+     
     })
   }, 
   []);
@@ -40,30 +41,33 @@ function EditBook(){
         </div>
         <div className="col">
         <Input
-          type='isbn' 
-          id='floatingInput' 
+          readonly
+          type='text' 
+          id='validation' 
           label="ISBN"
-          placeholder='isbn' 
-          value={book?.isbn} 
-          onChange={(e) => setBookEdit({...bookEdit, isbn: e.target.value})}
+          placeholder={book?.isbn}
+          value= {book?.isbn}
+          onChange={(e) => setBook({...book, isbn: e.target.value} as BookType)}
         ></Input>
         <Input 
-          type='livro' 
-          id='floatingInput' 
-          label={book?.name}  
-          placeholder='Nome do livro' 
-          value={bookEdit.name} 
-          onChange={(e) => setBookEdit({...bookEdit, name: e.target.value})}
+          type='text' 
+          id='validation' 
+          label='Nome do livro'
+          placeholder= {book?.name}  
+          value={book?.name} 
+          onChange={(e) => setBook({...book, name: e.target.value} as BookType)}
         ></Input>
         <Input 
-          type='number' 
-          id='floatingInput' 
+          type='text' 
+          id='validation' 
           label='Preço'
-          placeholder='Preço' 
-          value={bookEdit.price} 
-          onChange={(e) => setBookEdit({...bookEdit, price: e.target.valueAsNumber})}
+          placeholder={book?.price}
+          value={book?.price} 
+          onChange={(e) => setBook({...book, price: e.target.value} as BookType)}
+          mask={numberMaskConfig}
         ></Input>
-        <Button text='Editar livro' type="submit" onClick={() => handlePut(bookEdit.isbn,bookEdit)} color='submit'></Button>
+        <Button text='Editar livro' type="submit" onClick={() => handlePut(
+          book?.isbn??'',book as BookType)} color='submit'></Button>
         </div>
     </div>
 );
