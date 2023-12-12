@@ -2,7 +2,7 @@ import {ChangeEvent} from "react";
 
 export type InputProps ={
     placeholder?: string |undefined | number ;
-    label : string | null | undefined | number;
+    label? : string | null | undefined | number;
     type : string;
     id : string;
     value : string | number | undefined

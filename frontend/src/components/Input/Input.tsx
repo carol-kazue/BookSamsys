@@ -1,4 +1,4 @@
-import {InputProps, NumberMaskOptions} from "./Input.types"
+import {InputProps} from "./Input.types"
 import MaskedInput from 'react-text-mask'
 import {createNumberMask} from 'text-mask-addons'
 

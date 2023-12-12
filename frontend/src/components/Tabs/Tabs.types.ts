@@ -1,4 +1,6 @@
 
 export type TabsProps={
-    active?: boolean
+    active?: boolean,
+    text: string,
+    //to: string
 }

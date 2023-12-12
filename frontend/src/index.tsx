@@ -5,23 +5,24 @@ import './index.css';
 
 import Books from './pages/Books/Books';
 import EditBook from "./pages/EditBook/EditBook";
+import App from "./App";
 
 const rootElement = document.getElementById("root");
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Books />,
-  },
-  {
-    path:"editar-livro/:isbn",
-    element: <EditBook/>
-  },
-  {
-    path:"editar-livro",
-    element: <EditBook/>
-  }
   
+      {
+        path: "/",
+        element: <Books />,
+      },
+      {
+        path:"livro/:isbn",
+        element: <EditBook/>
+      },
+      {
+        path:"livro",
+        element: <EditBook/>
+      }  
 ]);
 
 const root = createRoot(rootElement as HTMLElement);
@@ -31,6 +32,5 @@ root.render(
     <RouterProvider router={router} />
   </StrictMode>,
 );
-
 
 

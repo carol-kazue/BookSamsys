@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 
 export type LinkProps = {
-    href : {},
+    to : {},
     text: string;
     color: "primary" | "secondary";
 }

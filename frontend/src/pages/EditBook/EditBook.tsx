@@ -5,8 +5,6 @@ import { BookType } from "../../Types/Books.types";
 import { editBook, fetchBook, postBook} from "../../service/BookApi";
 import { useParams, useNavigate } from "react-router-dom";
 import { NumberMaskOptions } from "../../components/Input/Input.types";
-import { Tabs } from "../../components/Tabs/Tabs";
-
 const numberMaskConfig: NumberMaskOptions = {
   allowDecimal: true, 
   decimalSymbol: ".",
@@ -16,7 +14,7 @@ const numberMaskConfig: NumberMaskOptions = {
 }
 function EditBook(){
   const [book, setBook]= useState<BookType| null>(null);
-  const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
+  //const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
   
   const {isbn} = useParams();
  
@@ -30,12 +28,9 @@ function EditBook(){
   }
   const handlePost =async (book:BookType) => {
     await postBook(book);
-    //console.log(book)
-    //const updatedBooks = await fetchBooks();
-    setNewBook({ isbn: '', name: '', price: ''})
-    //setBooks(updatedBooks?.obj);
+    setBook({ isbn: '', name: '', price: ''})
   }
-  // chama o get livro espeífico para mostar nas labals os dados do livro e atualiza o estado do objeto 
+  // chama o get livro espífico para mostar nas labals os dados do livro e atualiza o estado do objeto 
   useEffect(() => {
     fetchBook(isbn).then(result=>{
       console.log(result.obj)
@@ -46,76 +41,52 @@ function EditBook(){
 
   return(
     <div className="container col-5 EditBook">
-        <Tabs/>
         {
-          isbn? <div>
-          <div className="col mt-5 mb-5">
+          isbn? <div className="col mt-5 mb-5 edit">
             <h1>Edite o seu livro aqui</h1>
-          </div>
+            </div> 
+            : 
+            <div className="col m-5 post">
+            <h1>Adicione um novo livro</h1>
+            </div>
+            }
           <div className="col">
-          <Input
-            readonly
-            type='text' 
-            id='validation' 
-            label="ISBN"
-            placeholder={book?.isbn}
-            value= {book?.isbn}
-            onChange={(e) => setBook({...book, isbn: e.target.value} as BookType)}
-          ></Input>
-          <Input 
-            type='text' 
-            id='validation' 
-            label='Nome do livro'
-            placeholder= {book?.name}  
-            value={book?.name} 
-            onChange={(e) => setBook({...book, name: e.target.value} as BookType)}
-          ></Input>
-          <Input 
-            type='text' 
-            id='validation' 
-            label='Preço'
-            placeholder={book?.price}
-            value={book?.price} 
-            onChange={(e) => setBook({...book, price: e.target.value} as BookType)}
-            mask={numberMaskConfig}
-          ></Input>
-          <Button text='Editar livro' type="submit" onClick={() => handlePut(
-            book?.isbn??'',book as BookType)} color='submit'></Button>
+            <Input
+              readonly
+              type='text' 
+              id='validation' 
+              label="ISBN"
+              placeholder={book?.isbn}
+              value= {book?.isbn}
+              onChange={(e) => setBook({...book, isbn: e.target.value} as BookType)}
+            ></Input>
+            <Input 
+              type='text' 
+              id='validation' 
+              label='Nome do livro'
+              placeholder= {book?.name}  
+              value={book?.name} 
+              onChange={(e) => setBook({...book, name: e.target.value} as BookType)}
+            ></Input>
+            <Input 
+              type='text' 
+              id='validation' 
+              label='Preço'
+              placeholder={book?.price}
+              value={book?.price} 
+              onChange={(e) => setBook({...book, price: e.target.value} as BookType)}
+              mask={numberMaskConfig}
+            ></Input>
+            <Button text='Salvar' type="submit" onClick={() => {
+              if(!isbn){
+                handlePost(book as BookType)
+              }else{
+                handlePut(
+                  book?.isbn??'',book as BookType)}
+              }
+            }  color='submit'></Button>
           </div>
-        </div> :
-        <div>
-        <div className="col m-5">
-          <h1>BookSamsys</h1>
-        </div>
-        <div className=" container col">
-          <Input 
-            type='isbn' 
-            id='floatingInput' 
-            label="ISBN" 
-            value={newBook.isbn} 
-            onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
-          ></Input>
-          <Input 
-            type='livro' 
-            id='floatingInput' 
-            label="Nome do livro" 
-            value={newBook.name}
-            onChange={(e) => setNewBook({ ...newBook, name: e.target.value })}
-          ></Input>
-          <Input 
-            type='text' 
-            id='floatingInput' 
-            label="Preço" 
-            value={newBook.price}
-            onChange={(e) => setNewBook({ ...newBook, price: e.target.value})}
-          ></Input>
-          <Button text='Adicionar livro' type="submit" onClick={() => handlePost(newBook)} color='submit'></Button>
-        </div>
-        </div>
-        }
-        
-        
-    </div>
+        </div> 
 );
 }
 export default EditBook;

@@ -12,17 +12,16 @@ import {deleteBook, fetchBooks, postBook } from "../../service/BookApi";
 import { Tabs } from "../../components/Tabs/Tabs";
 
 const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void, /*onBookByIsbn: (isbn:string)=>void*/} ) =>(
-  <div>
+  <div className="text-center">
     <Button 
       onClick={() => {
-        console.log(book.name, "deletar");
         onDelete(book.isbn);  // Passa o isbn do livro para a função de exclusão
       }} 
       text="Apagar" 
       type="button"
       color="reset"
     />
-    <Link href={`editar-livro/${book.isbn}`}
+    <Link to={`livro/${book.isbn}`}
      text="Editar" color="primary"/>
   </div>
 )
@@ -48,7 +47,6 @@ function Books() {
     const handleDelete = async (bookIsbn:string) => {
       // Chama a função para excluir o livro
       await deleteBook(bookIsbn);
-  
       // Atualiza a lista de livros após a exclusão
       const updatedBooks = await fetchBooks();
       setBooks(updatedBooks?.obj);
@@ -57,11 +55,19 @@ function Books() {
     return (
       
       <div className="container mb-2 Books">
-        <Tabs active></Tabs>
-        <br />
-        <div className=" m-5">
-        <h1>Lista de livros</h1>
+       
+        <br/>
+        <div className="d-flex align-items-center justify-content-center row">
+            <h1 className="text-center">Lista de livros</h1>
         </div>
+          <div className="search container d-flex align-items-center justify-content-center row">
+            <div className="col-6 ">
+              <Input type="text" id="form-control" value={""} onChange={()=>{}} ></Input>
+            </div>
+            <div className="button-search text-center mt-2 col-2">
+              <Button text="Pesquisar" type="submit" onClick={()=>{}} color="submit"></Button>
+            </div>
+          </div>
         <Table data={booksTransformer(books,handleDelete)} columns={columns}/>
         </div>
     );
