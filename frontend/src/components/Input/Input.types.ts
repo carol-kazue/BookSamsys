@@ -1,7 +1,7 @@
 import {ChangeEvent} from "react";
 
 export type InputProps ={
-    placeholder: string |undefined | number ;
+    placeholder?: string |undefined | number ;
     label : string | null | undefined | number;
     type : string;
     id : string;
@@ -12,14 +12,14 @@ export type InputProps ={
 };
 export interface NumberMaskOptions {
     prefix: string;
-    //suffix: string;
-   // includeThousandsSeparator: boolean;
-    //thousandsSeparatorSymbol: string;
     allowDecimal: boolean;
     decimalSymbol: string;
     decimalLimit: number;
     requireDecimal: boolean;
     //allowNegative: boolean;
     //allowLeadingZeroes: boolean;
+    //suffix: string;
+    // includeThousandsSeparator: boolean;
+    //thousandsSeparatorSymbol: string;
    
 }

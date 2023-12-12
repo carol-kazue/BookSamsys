@@ -5,6 +5,7 @@ import { BookType } from "../../Types/Books.types";
 import { editBook, fetchBook} from "../../service/BookApi";
 import { useParams, useNavigate } from "react-router-dom";
 import { NumberMaskOptions } from "../../components/Input/Input.types";
+import { Tabs } from "../../components/Tabs/Tabs";
 
 const numberMaskConfig: NumberMaskOptions = {
   allowDecimal: true, 
@@ -29,14 +30,14 @@ function EditBook(){
     fetchBook(isbn).then(result=>{
       console.log(result.obj)
       setBook(result?.obj)
-     
     })
   }, 
   []);
 
   return(
-    <div className="container text-center EditBook">
-        <div className="col m-5">
+    <div className="container col-5 EditBook">
+        <Tabs/>
+        <div className="col mt-5 mb-5">
           <h1>Edite o seu livro aqui</h1>
         </div>
         <div className="col">

@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     path:"editar-livro/:isbn",
     element: <EditBook/>
   }
+  
 ]);
 
 const root = createRoot(rootElement as HTMLElement);

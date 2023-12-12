@@ -9,6 +9,7 @@ import { BookType } from "../../Types/Books.types";
 import { BookTableDataType } from "./Books.types";
 import { ReactNode } from "react";
 import {deleteBook, fetchBooks, postBook } from "../../service/BookApi";
+import { Tabs } from "../../components/Tabs/Tabs";
 
 const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void, /*onBookByIsbn: (isbn:string)=>void*/} ) =>(
   <div>
@@ -63,38 +64,36 @@ function Books() {
     }
 
     return (
-      <div className="container text-center Books">
+      
+      <div className="container mb-2 Books">
+        <Tabs active></Tabs>
         <br />
         <div className="col m-5">
           <h1>BookSamsys</h1>
         </div>
-        <div className="col">
-        <Input 
-          type='isbn' 
-          id='floatingInput' 
-          label="ISBN" 
-          placeholder='isbn' 
-          value={newBook.isbn} 
-          onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
-        ></Input>
-        <Input 
-          type='livro' 
-          id='floatingInput' 
-          label="Nome do livro" 
-          placeholder='Nome do livro' 
-          value={newBook.name}
-          onChange={(e) => setNewBook({ ...newBook, name: e.target.value })}
-        ></Input>
-        <Input 
-          type='text' 
-          id='floatingInput' 
-          label="Preço" 
-          placeholder='Preço' 
-          value={newBook.price}
-          onChange={(e) => setNewBook({ ...newBook, price: e.target.value})}
-        ></Input>
-        <Button text='Adicionar livro' type="submit" onClick={() => handlePost(newBook)} color='submit'></Button>
-        
+        <div className=" container col-5">
+          <Input 
+            type='isbn' 
+            id='floatingInput' 
+            label="ISBN" 
+            value={newBook.isbn} 
+            onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
+          ></Input>
+          <Input 
+            type='livro' 
+            id='floatingInput' 
+            label="Nome do livro" 
+            value={newBook.name}
+            onChange={(e) => setNewBook({ ...newBook, name: e.target.value })}
+          ></Input>
+          <Input 
+            type='text' 
+            id='floatingInput' 
+            label="Preço" 
+            value={newBook.price}
+            onChange={(e) => setNewBook({ ...newBook, price: e.target.value})}
+          ></Input>
+          <Button text='Adicionar livro' type="submit" onClick={() => handlePost(newBook)} color='submit'></Button>
         </div>
         <div className=" m-5">
         <h1>Lista de livros</h1>

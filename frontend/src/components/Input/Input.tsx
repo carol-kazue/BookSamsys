@@ -3,7 +3,7 @@ import MaskedInput from 'react-text-mask'
 import {createNumberMask} from 'text-mask-addons'
 
 export const Input =({placeholder, label, type,id,value, onChange, readonly, mask}:InputProps): JSX.Element =>{
-    return <div className="input-group-sm mb-3">
+    return <div className="mb-3">
         <label className={`form-label`} htmlFor="validation" >{label}</label>
         { mask ?
             <MaskedInput 
