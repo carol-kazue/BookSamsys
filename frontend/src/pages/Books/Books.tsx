@@ -37,8 +37,7 @@ const columns = ['isbn', 'name', 'price', 'action'];
 
 function Books() {
   const [books, setBooks] = useState<BookType[] | null>(null);
-  const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
-  
+ 
 
   useEffect(() => {
       fetchBooks().then(result=>{
@@ -55,46 +54,11 @@ function Books() {
       setBooks(updatedBooks?.obj);
     };
 
-    const handlePost =async (book:BookType) => {
-      await postBook(book);
-      //console.log(book)
-      const updatedBooks = await fetchBooks();
-      setNewBook({ isbn: '', name: '', price: ''})
-      setBooks(updatedBooks?.obj);
-    }
-
     return (
       
       <div className="container mb-2 Books">
         <Tabs active></Tabs>
         <br />
-        <div className="col m-5">
-          <h1>BookSamsys</h1>
-        </div>
-        <div className=" container col-5">
-          <Input 
-            type='isbn' 
-            id='floatingInput' 
-            label="ISBN" 
-            value={newBook.isbn} 
-            onChange={(e) => setNewBook({ ...newBook, isbn: e.target.value })}
-          ></Input>
-          <Input 
-            type='livro' 
-            id='floatingInput' 
-            label="Nome do livro" 
-            value={newBook.name}
-            onChange={(e) => setNewBook({ ...newBook, name: e.target.value })}
-          ></Input>
-          <Input 
-            type='text' 
-            id='floatingInput' 
-            label="Preço" 
-            value={newBook.price}
-            onChange={(e) => setNewBook({ ...newBook, price: e.target.value})}
-          ></Input>
-          <Button text='Adicionar livro' type="submit" onClick={() => handlePost(newBook)} color='submit'></Button>
-        </div>
         <div className=" m-5">
         <h1>Lista de livros</h1>
         </div>

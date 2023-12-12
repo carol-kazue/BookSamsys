@@ -16,6 +16,10 @@ const router = createBrowserRouter([
   {
     path:"editar-livro/:isbn",
     element: <EditBook/>
+  },
+  {
+    path:"editar-livro",
+    element: <EditBook/>
   }
   
 ]);
