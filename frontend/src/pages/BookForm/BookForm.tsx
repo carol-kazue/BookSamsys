@@ -12,8 +12,9 @@ const numberMaskConfig: NumberMaskOptions = {
   requireDecimal: false, 
   prefix: ""
 }
-function EditBook(){
-  const [book, setBook]= useState<BookType| null>(null);
+function BookForm(){
+  const [book, setBook]= useState<BookType>({ isbn: '', name: '', price: ''});
+  const [isEdit, setIsEdit] = useState (false)
   //const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
   
   const {isbn} = useParams();
@@ -32,17 +33,24 @@ function EditBook(){
   }
   // chama o get livro espífico para mostar nas labals os dados do livro e atualiza o estado do objeto 
   useEffect(() => {
-    fetchBook(isbn).then(result=>{
-      console.log(result.obj)
-      setBook(result?.obj)
-    })
+    if(isbn !== "novo"){
+      fetchBook(isbn).then(result=>{
+        console.log(result.obj)
+        setIsEdit(true)
+        setBook(result?.obj)
+      })
+    }else{
+      setIsEdit(false)
+      setBook({ isbn: '', name: '', price: ''})
+    }
+      
   }, 
-  []);
+  [isbn]);
 
   return(
     <div className="container col-5 EditBook">
         {
-          isbn? <div className="col mt-5 mb-5 edit">
+          isEdit? <div className="col mt-5 mb-5 edit">
             <h1>Edite o seu livro aqui</h1>
             </div> 
             : 
@@ -52,7 +60,7 @@ function EditBook(){
             }
           <div className="col">
             <Input
-              readonly
+              readonly = {isEdit}
               type='text' 
               id='validation' 
               label="ISBN"
@@ -78,7 +86,7 @@ function EditBook(){
               mask={numberMaskConfig}
             ></Input>
             <Button text='Salvar' type="submit" onClick={() => {
-              if(!isbn){
+              if(!isEdit){
                 handlePost(book as BookType)
               }else{
                 handlePut(
@@ -89,4 +97,4 @@ function EditBook(){
         </div> 
 );
 }
-export default EditBook;
+export default BookForm;

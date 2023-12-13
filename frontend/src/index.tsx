@@ -4,25 +4,26 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css';
 
 import Books from './pages/Books/Books';
-import EditBook from "./pages/EditBook/EditBook";
+import BookForm from "./pages/BookForm/BookForm";
 import App from "./App";
 
 const rootElement = document.getElementById("root");
 
 const router = createBrowserRouter([
-  
+  {
+    path: "/",
+    element: <App/>,
+    children:[
       {
         path: "/",
         element: <Books />,
       },
       {
         path:"livro/:isbn",
-        element: <EditBook/>
+        element: <BookForm/>
       },
-      {
-        path:"livro",
-        element: <EditBook/>
-      }  
+    ]
+  }
 ]);
 
 const root = createRoot(rootElement as HTMLElement);

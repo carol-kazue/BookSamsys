@@ -1,18 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { TabsProps } from "./Tabs.types"
-
-
-export const Tabs = ()=>{
+export const Navbar = ()=>{
     return (
       <nav>
         <ul>
           <li>
-            <NavLink to="/" className="active">
+            <NavLink to="/">
               Lista de Livros
             </NavLink>
           </li>
           <li>
-            <NavLink to="/livro" className="active">
+            <NavLink to="/livro/novo">
               Adicionar livro
             </NavLink>
           </li>
