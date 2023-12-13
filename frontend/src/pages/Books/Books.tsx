@@ -59,12 +59,15 @@ function Books() {
         <div className="d-flex align-items-center justify-content-center row">
             <h1 className="text-center">Lista de livros</h1>
         </div>
-          <div className="search container d-flex align-items-center justify-content-center row">
-            <div className="col-6 ">
+          <div className="container gap-2 d-flex align-items-center justify-content-center col">
+            <div className="col-4 mt-3">
               <Input name={""} type="text" id="form-control" value={""} onChange={()=>{}} ></Input>
             </div>
-            <div className="button-search text-center mt-2 col-2">
+            <div className="button-search d-flex justify-content-center mt-2">
               <Button text="Pesquisar" type="submit" onClick={()=>{}} color="submit"></Button>
+            </div>
+            <div className="d-flex mt-2 justify-content-end col-2 mr-5">
+              <Link to={`livro/`} text="Adcionar livro" color="secondary"/> 
             </div>
           </div>
         <Table data={booksTransformer(books,handleDelete)} columns={columns}/>

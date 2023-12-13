@@ -7,5 +7,5 @@ export const Link = ({color,to,text}: LinkProps): JSX.Element => {
         backgroundColor: color === "primary" ? "#FDB901" : "#F47E00", 
         borderColor: color === "primary" ? "#FDB901" : "#F47E00", 
     };
-    return <LinkRoute  to={to} className={`btn btn-custom m-1`} style={btnCustomStyle}>{text}</LinkRoute>
+    return <LinkRoute  to={to} className={`btn btn-custom m-1 `} style={btnCustomStyle}>{text}</LinkRoute>
 }

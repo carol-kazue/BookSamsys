@@ -22,6 +22,10 @@ const router = createBrowserRouter([
         path:"livro/:isbn",
         element: <BookForm/>
       },
+      {
+        path:"livro/",
+        element: <BookForm/>
+      },
     ]
   }
 ]);
