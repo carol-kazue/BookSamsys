@@ -30,8 +30,13 @@ function BookForm(){
   const handlePost =async (book:BookType) => {
     await postBook(book);
     setBook({ isbn: '', name: '', price: ''})
+    history(-1)
   }
-  // chama o get livro espífico para mostar nas labals os dados do livro e atualiza o estado do objeto 
+  const handleChange =(e:{target: any}) => {
+    const {name, value} =e.target;
+    setBook({...book, [name]:value})
+  }
+
   useEffect(() => {
     if(isbn !== "novo"){
       fetchBook(isbn).then(result=>{
@@ -43,7 +48,6 @@ function BookForm(){
       setIsEdit(false)
       setBook({ isbn: '', name: '', price: ''})
     }
-      
   }, 
   [isbn]);
 
@@ -62,35 +66,38 @@ function BookForm(){
             <Input
               readonly = {isEdit}
               type='text' 
-              id='validation' 
+              id='isbn' 
               label="ISBN"
               placeholder={book?.isbn}
               value= {book?.isbn}
-              onChange={(e) => setBook({...book, isbn: e.target.value} as BookType)}
+              name="isbn"
+              onChange={handleChange}
             ></Input>
             <Input 
               type='text' 
-              id='validation' 
+              id='name' 
               label='Nome do livro'
               placeholder= {book?.name}  
               value={book?.name} 
-              onChange={(e) => setBook({...book, name: e.target.value} as BookType)}
+              name="name"
+              onChange={handleChange}
             ></Input>
             <Input 
               type='text' 
-              id='validation' 
+              id='price' 
               label='Preço'
               placeholder={book?.price}
               value={book?.price} 
-              onChange={(e) => setBook({...book, price: e.target.value} as BookType)}
+              name="price"
+              onChange={handleChange}
               mask={numberMaskConfig}
             ></Input>
             <Button text='Salvar' type="submit" onClick={() => {
               if(!isEdit){
-                handlePost(book as BookType)
+                handlePost(book)
               }else{
                 handlePut(
-                  book?.isbn??'',book as BookType)}
+                  book?.isbn??'',book)}
               }
             }  color='submit'></Button>
           </div>

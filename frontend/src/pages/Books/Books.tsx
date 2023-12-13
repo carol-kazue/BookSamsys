@@ -61,7 +61,7 @@ function Books() {
         </div>
           <div className="search container d-flex align-items-center justify-content-center row">
             <div className="col-6 ">
-              <Input type="text" id="form-control" value={""} onChange={()=>{}} ></Input>
+              <Input name={""} type="text" id="form-control" value={""} onChange={()=>{}} ></Input>
             </div>
             <div className="button-search text-center mt-2 col-2">
               <Button text="Pesquisar" type="submit" onClick={()=>{}} color="submit"></Button>

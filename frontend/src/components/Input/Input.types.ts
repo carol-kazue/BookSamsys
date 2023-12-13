@@ -9,6 +9,7 @@ export type InputProps ={
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     readonly?: boolean; 
     mask?: NumberMaskOptions
+    name: string
 };
 export interface NumberMaskOptions {
     prefix: string;

@@ -2,7 +2,7 @@ import {InputProps} from "./Input.types"
 import MaskedInput from 'react-text-mask'
 import {createNumberMask} from 'text-mask-addons'
 
-export const Input =({placeholder, label, type,id,value, onChange, readonly, mask}:InputProps): JSX.Element =>{
+export const Input =({placeholder, label, type,id,value, onChange, readonly, mask, name}:InputProps): JSX.Element =>{
     return <div className="mb-3">
         <label className={`form-label`} htmlFor="validation" >{label}</label>
         { mask ?
@@ -15,6 +15,7 @@ export const Input =({placeholder, label, type,id,value, onChange, readonly, mas
             id={id} 
             readOnly={readonly}
             mask={createNumberMask(mask)}
+            name={name}
         /> : 
             <input 
             onChange={onChange} 
@@ -24,6 +25,7 @@ export const Input =({placeholder, label, type,id,value, onChange, readonly, mas
             placeholder={placeholder as string} 
             id={id} 
             readOnly={readonly}
+            name={name}
         /> }
         </div>
 }
