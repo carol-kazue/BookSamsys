@@ -49,40 +49,55 @@ namespace webApiBookSamsys.Infrastructure.Services
         {
             MessangingHelper<Author> response = new();
 
-            var author = await _authorRepository.GetAuthorById(id);
-            if(author == null)
+            try
             {
-                response.Message = "Autor não existe";
+                var author = await _authorRepository.GetAuthorById(id);
+                if (author == null)
+                {
+                    response.Message = "Autor não existe";
+                    return response;
+                }
+                response.Message = "Autor encontrado";
+                response.Obj = author;
+                response.Success = true;
                 return response;
             }
-            response.Message = "Autor encontrado";
-            response.Obj = author;
-            response.Success = true;
-            return response;
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<MessangingHelper<AuthorCreateDTO>> PutAuthor( long id, AuthorCreateDTO authorCreateDTO)    
         {
             MessangingHelper<AuthorCreateDTO> response = new();
-
-            var idAuthorExist = await _authorRepository.GetAuthorById(id);
-           
-            if(idAuthorExist == null)
+            try
             {
-                response.Message = "Autor não existe";
+
+                var idAuthorExist = await _authorRepository.GetAuthorById(id);
+
+                if (idAuthorExist == null)
+                {
+                    response.Message = "Autor não existe";
+                    return response;
+                }
+
+                var author = _mapper.Map<Author>(idAuthorExist);
+
+                author.UpdateAuthor(authorCreateDTO.Name);
+                var authorEdited = await _authorRepository.PutAuthor(author);
+
+                response.Message = "Livro editado com sucesso";
+                response.Obj = _mapper.Map<AuthorCreateDTO>(authorEdited);
+                response.Success = true;
                 return response;
             }
+            catch (Exception)
+            {
 
-            var author = _mapper.Map<Author>(idAuthorExist);
-
-            author.UpdateAuthor(authorCreateDTO.Name);
-            var authorEdited = await _authorRepository.PutAuthor(author);
-
-
-            response.Message = "Livro editado com sucesso";
-            response.Obj = _mapper.Map<AuthorCreateDTO>(authorEdited);
-            response.Success = true;
-            return response;
+                throw;
+            }
         }
 
 
@@ -92,19 +107,13 @@ namespace webApiBookSamsys.Infrastructure.Services
             
             try
             {
-                var authorExist = await _authorRepository.GetAuthorByName(authorCreateDTO.Name);
-                if(authorExist == null)
-                {
                     var mappedAuthor = _mapper.Map<Author>(authorCreateDTO);
                     var newAuthor = await _authorRepository.PostAuthor(mappedAuthor);
                     response.Message = "Autor criado com sucesso";
                     response.Obj = _mapper.Map<AuthorCreateDTO>(newAuthor);
                     response.Success = true;
                     return response;
-                }
-
-                response.Message = "Autor já existe";
-                return response;
+                
             }
             catch (Exception)
             {

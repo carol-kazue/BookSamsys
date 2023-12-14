@@ -15,7 +15,6 @@ namespace webApiBookSamsys.Infrastructure.Repository
         public async Task<List<Author>> GetAuthors()
         {
             var authors = _context.Author.ToList();
-            Console.WriteLine(authors);
             return authors;
         }
         public async Task<Author> GetAuthorById(long id)  

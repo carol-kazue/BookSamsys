@@ -38,7 +38,7 @@ namespace webApiBookSamsys.Controllers
         }
 
         // PUT: api/Authors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<MessangingHelper<AuthorCreateDTO>> PutAuthor (long id, AuthorCreateDTO authorCreateDTO)
         {
@@ -46,7 +46,7 @@ namespace webApiBookSamsys.Controllers
         }
 
         // POST: api/Authors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost("autor")]
         public async Task<MessangingHelper<AuthorCreateDTO>> PostAuthor([FromBody] AuthorCreateDTO authorCreateDTO)
         {

@@ -48,7 +48,6 @@ namespace webApiBookSamsys.Infrastructure.Repository
         public async Task<Book> EditOneBook(Book book)
         {
              await _context.SaveChangesAsync();
-
             return book;
         }
     }

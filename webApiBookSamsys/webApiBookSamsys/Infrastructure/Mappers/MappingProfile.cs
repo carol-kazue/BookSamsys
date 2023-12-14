@@ -17,6 +17,10 @@ namespace webApiBookSamsys.Infrastructure.Mappers
 
             CreateMap<AuthorCreateDTO, Author>();
 
+            CreateMap<Author_bookDTO, Author_Book>();
+
+            CreateMap<Author_Book, Author_bookDTO>();
+
         }
 
     }

@@ -16,11 +16,13 @@ namespace webApiBookSamsys.Infrastructure.Services
     public class BookService
     {
         private readonly BookRepository _bookRepository;
+        private readonly AuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public BookService(BookRepository bookRepository, IMapper mapper)
+        public BookService(BookRepository bookRepository, AuthorRepository authorRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
@@ -151,7 +153,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                 MessangingHelper<BookDTO> response = new();
 
                 if (isbn.Length != 13)
-               {
+                {
                     response.Message = "O ISBN precisa ter 13 caracteres";
                     return response;
                 }
@@ -168,11 +170,9 @@ namespace webApiBookSamsys.Infrastructure.Services
                         response.Message = "Os Campos precisam ser preenchidos corretamente";
                         return response; 
                    }
-
                    // var mappedBook = _mapper.Map<Book>(bookDTO);
                     livroExiste.UpdateBook(bookDTO.Name, bookDTO.Price);
                     var livroEditado = await _bookRepository.EditOneBook(livroExiste);
-                    
 
                     response.Message = "Livro editado com sucesso";
                     response.Obj = _mapper.Map<BookDTO>(livroEditado);
