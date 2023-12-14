@@ -13,7 +13,7 @@ namespace webApiBookSamsys.Infrastructure.Entities.DTOs
 
         public decimal Price { get; set; }
 
-        
+        public List<long> authorId { get; set; }
     }
 
     

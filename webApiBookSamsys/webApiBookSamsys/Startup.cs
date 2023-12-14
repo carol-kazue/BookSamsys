@@ -25,6 +25,8 @@ namespace webApiBookSamsys
             services.AddScoped<BookService>();
             services.AddScoped<AuthorRepository>();
             services.AddScoped<AuthorService>();
+            services.AddScoped<Author_BookRepository>();
+            services.AddScoped<Author_BookService>();
             //services.AddScoped<BooksController>();
             services.AddAutoMapper(typeof(MappingProfile));
 

@@ -17,10 +17,12 @@ namespace webApiBookSamsys.Infrastructure.Services
     {
         private readonly BookRepository _bookRepository;
         private readonly AuthorRepository _authorRepository;
+        private readonly Author_BookRepository _author_BookRepository;
         private readonly IMapper _mapper;
 
-        public BookService(BookRepository bookRepository, AuthorRepository authorRepository, IMapper mapper)
+        public BookService(BookRepository bookRepository, AuthorRepository authorRepository, Author_BookRepository author_BookRepository, IMapper mapper)
         {
+            _author_BookRepository = author_BookRepository;
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             _mapper = mapper;
@@ -85,14 +87,25 @@ namespace webApiBookSamsys.Infrastructure.Services
             try
             {
                 var livroExiste = await _bookRepository.GetBookByIsbn(bookDTO.ISBN);
+
+               
+
                 if(livroExiste == null)
                 {
-                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0)
+                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0 && bookDTO.authorId != null)
                     {
+                        for (var i = 0; i < bookDTO.authorId.Count; i++)
+                        {
+                            var author = bookDTO.authorId[i];
+                            var authorExist = await _authorRepository.GetAuthorById(author);
+                            var createRelationShip = await _author_BookRepository.PostRelationship(new Author_Book { ISBN = bookDTO.ISBN, IdAuthor = author});
+                        }
+
                         var mappedBook = _mapper.Map<Book>(bookDTO);        
-                        var bookAdd = await _bookRepository.PostNewBook(mappedBook);   
+                        var bookAdd = await _bookRepository.PostNewBook(mappedBook);
+                        
                         response.Message = "Livro criado com sucesso";
-                        response.Obj = _mapper.Map<BookDTO>(bookAdd);
+                        response.Obj = bookDTO;
                         response.Success = true;
                         return response;
 
@@ -178,7 +191,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                     response.Obj = _mapper.Map<BookDTO>(livroEditado);
                     response.Success = true;
                     return response;
-                }
+               }
            }
            catch (Exception)
            {
