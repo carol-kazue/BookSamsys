@@ -51,6 +51,7 @@ namespace webApiBookSamsys.Infrastructure.Services
         public async Task<MessangingHelper<BookDTO>> GetBookByIsbn(string isbn)
         {
             MessangingHelper<BookDTO> response = new();
+
             try
             {
                 if (isbn.Length != 13)

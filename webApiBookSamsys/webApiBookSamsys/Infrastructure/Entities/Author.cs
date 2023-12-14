@@ -11,6 +11,13 @@ namespace webApiBookSamsys.Infrastructure.Entities
         public long IdAuthor { get; set; }  
 
         [Column(TypeName = "varchar (50)")]
-        public string Name { get; set; }    
+        public string Name { get; set; }
+
+        public void UpdateAuthor(string name)
+        {
+            Name = name;
+        }
     }
+
+   
 }
