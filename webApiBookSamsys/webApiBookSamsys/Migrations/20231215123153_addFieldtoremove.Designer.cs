@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webApiBookSamsys.Infrastructure.Entities;
 
@@ -10,9 +11,11 @@ using webApiBookSamsys.Infrastructure.Entities;
 namespace webApiBookSamsys.Migrations
 {
     [DbContext(typeof(BookSamsysContext))]
-    partial class BookSamsysContextModelSnapshot : ModelSnapshot
+    [Migration("20231215123153_addFieldtoremove")]
+    partial class addFieldtoremove
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,6 +68,10 @@ namespace webApiBookSamsys.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
+
+                    b.Property<string>("AAAvouserremovido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .IsRequired()

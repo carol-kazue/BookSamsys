@@ -92,15 +92,17 @@ namespace webApiBookSamsys.Infrastructure.Services
 
                 if(livroExiste == null)
                 {
-                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0 && bookDTO.authorId != null)
+                    //&& bookDTO.authorId != null
+                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0 )
                     {
+                        /*
                         for (var i = 0; i < bookDTO.authorId.Count; i++)
                         {
                             var author = bookDTO.authorId[i];
                             var authorExist = await _authorRepository.GetAuthorById(author);
                             var createRelationShip = await _author_BookRepository.PostRelationship(new Author_Book { ISBN = bookDTO.ISBN, IdAuthor = author});
                         }
-
+                        */
                         var mappedBook = _mapper.Map<Book>(bookDTO);        
                         var bookAdd = await _bookRepository.PostNewBook(mappedBook);
                         
@@ -184,7 +186,7 @@ namespace webApiBookSamsys.Infrastructure.Services
                         return response; 
                    }
                    // var mappedBook = _mapper.Map<Book>(bookDTO);
-                    livroExiste.UpdateBook(bookDTO.Name, bookDTO.Price);
+                    livroExiste.UpdateBook(bookDTO.Name, bookDTO.Price, bookDTO.Color, bookDTO.Weight);
                     var livroEditado = await _bookRepository.EditOneBook(livroExiste);
 
                     response.Message = "Livro editado com sucesso";

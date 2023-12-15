@@ -31,7 +31,7 @@ const booksTransformer =(books: BookType[] | null, onDelete:(isbn:string)=>void)
   }
   return books.map((book:BookType):BookTableDataType =>({...book,action: (() => (<ActionCell book={book} onDelete={onDelete}/>)) as unknown as ReactNode}))
 }
-const columns = ['isbn', 'name', 'price', 'action'];
+const columns = ['isbn', 'name', 'price', 'color', 'weight', 'action'];
 
 function Books() {
   const [books, setBooks] = useState<BookType[] | null>(null);

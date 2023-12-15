@@ -13,9 +13,8 @@ const numberMaskConfig: NumberMaskOptions = {
   prefix: ""
 }
 function BookForm(){
-  const [book, setBook]= useState<BookType>({ isbn: '', name: '', price: ''});
+  const [book, setBook]= useState<BookType>({ isbn: '', name: '', price: '',color: '', weight: ''});
   const [isEdit, setIsEdit] = useState (false)
-  //const [newBook, setNewBook] = useState<BookType>({ isbn: '', name: '', price: ''});
   
   const {isbn} = useParams();
  
@@ -29,7 +28,7 @@ function BookForm(){
   }
   const handlePost =async (book:BookType) => {
     await postBook(book);
-    setBook({ isbn: '', name: '', price: ''})
+    setBook({ isbn: '', name: '', price: '', color: '', weight: ''})
     history(-1)
   }
   const handleChange =(e:{target: any}) => {
@@ -38,15 +37,15 @@ function BookForm(){
   }
 
   useEffect(() => {
-    if(isbn !== "novo"){
+    if(isbn !== undefined){
       fetchBook(isbn).then(result=>{
-        console.log(result.obj)
         setIsEdit(true)
         setBook(result?.obj)
       })
     }else{
       setIsEdit(false)
-      setBook({ isbn: '', name: '', price: ''})
+      setBook({ isbn: '', name: '', price: '', color: '', weight: ''})
+      
     }
   }, 
   [isbn]);
@@ -54,7 +53,7 @@ function BookForm(){
   return(
     <div className="container col-5 EditBook">
         {
-          isEdit? <div className="col mt-5 mb-5 edit">
+          isbn? <div className="col mt-5 mb-5 edit">
             <h1>Edite o seu livro aqui</h1>
             </div> 
             : 
@@ -64,7 +63,7 @@ function BookForm(){
             }
           <div className="col">
             <Input
-              readonly = {isEdit}
+              readonly = {isEdit === true}
               type='text' 
               id='isbn' 
               label="ISBN"
@@ -92,6 +91,26 @@ function BookForm(){
               onChange={handleChange}
               mask={numberMaskConfig}
             ></Input>
+             <Input 
+              type='text' 
+              id='color' 
+              label='Cor'
+              placeholder={book?.color}
+              value={book?.color} 
+              name="color"
+              onChange={handleChange}
+            ></Input>
+             <Input 
+              type='text' 
+              id='weight' 
+              label='Peso'
+              placeholder={book?.weight}
+              value={book?.weight} 
+              name="weight"
+              onChange={handleChange}
+              mask={numberMaskConfig}
+            ></Input>
+        
             <Button text='Salvar' type="submit" onClick={() => {
               if(!isEdit){
                 handlePost(book)
@@ -101,7 +120,7 @@ function BookForm(){
               }
             }  color='submit'></Button>
           </div>
-        </div> 
+  </div> 
 );
 }
 export default BookForm;
