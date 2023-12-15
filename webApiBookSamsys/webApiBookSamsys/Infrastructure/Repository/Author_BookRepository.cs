@@ -18,5 +18,13 @@ namespace webApiBookSamsys.Infrastructure.Repository
             await _context.SaveChangesAsync();
             return author_Book;
         }
+
+        public async Task<List<Author_Book>> GetRelashionship()
+        {
+            var list = _context.Author_Books.ToList();
+            return list;
+        }
+
+       
     }
 }

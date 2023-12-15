@@ -17,6 +17,8 @@ namespace webApiBookSamsys.Infrastructure.Repository
             var authors = _context.Author.ToList();
             return authors;
         }
+
+
         public async Task<Author> GetAuthorById(long id)  
         {
             var author = _context.Author.Find(id);

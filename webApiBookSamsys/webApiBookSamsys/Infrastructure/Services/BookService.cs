@@ -37,8 +37,9 @@ namespace webApiBookSamsys.Infrastructure.Services
                 if (livrosExistem == null)
                 {
                    response.Message = "Não existe livros na lista";
-                    return response;
+                   return response;
                 }
+
                 var livrosDTO = _mapper.Map<List<BookDTO>>(livrosExistem);
                 response.Message = "Retorno da lista de livros bem sucedida";
                 response.Obj = livrosDTO;
@@ -49,7 +50,6 @@ namespace webApiBookSamsys.Infrastructure.Services
             {
                 throw;
             }
-
         }
 
         public async Task<MessangingHelper<BookDTO>> GetBookByIsbn(string isbn)
