@@ -39,12 +39,23 @@ namespace webApiBookSamsys.Infrastructure.Services
                    response.Message = "Não existe livros na lista";
                    return response;
                 }
+                else
+                {
+                    for (var i = 0; i < livrosExistem.Count; i++)
+                    {
+                        var book = livrosExistem[i].ISBN;
+                        var authorExist = await _authorRepository.GetAuthorByName(book);
+                        var createRelationShip = await _author_BookRepository.PostRelationship(new Author_Book { ISBN = bookDTO.ISBN, IdAuthor = author });
+                    }
 
-                var livrosDTO = _mapper.Map<List<BookDTO>>(livrosExistem);
-                response.Message = "Retorno da lista de livros bem sucedida";
-                response.Obj = livrosDTO;
-                response.Success = true;
-                return response;
+                    var livrosDTO = _mapper.Map<List<BookDTO>>(livrosExistem);
+                    response.Message = "Retorno da lista de livros bem sucedida";
+                    response.Obj = livrosDTO;
+                    response.Success = true;
+                    return response;
+                }
+
+               
             }
             catch (Exception)
             {
@@ -92,17 +103,16 @@ namespace webApiBookSamsys.Infrastructure.Services
 
                 if(livroExiste == null)
                 {
-                    //&& bookDTO.authorId != null
-                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0 )
+                    if (bookDTO.ISBN.Length == 13 && bookDTO.Name.Length >1 && bookDTO.Price > 0 && bookDTO.authorId != null)
                     {
-                        /*
+                        
                         for (var i = 0; i < bookDTO.authorId.Count; i++)
                         {
                             var author = bookDTO.authorId[i];
                             var authorExist = await _authorRepository.GetAuthorById(author);
                             var createRelationShip = await _author_BookRepository.PostRelationship(new Author_Book { ISBN = bookDTO.ISBN, IdAuthor = author});
                         }
-                        */
+                        
                         var mappedBook = _mapper.Map<Book>(bookDTO);        
                         var bookAdd = await _bookRepository.PostNewBook(mappedBook);
                         

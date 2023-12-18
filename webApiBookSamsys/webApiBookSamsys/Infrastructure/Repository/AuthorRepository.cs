@@ -25,7 +25,21 @@ namespace webApiBookSamsys.Infrastructure.Repository
             return author;
         }
 
+        public async Task<string>GetAuthorsNameById(long idAuthor)          
+        {
+            var authorName = _context.Author.Where(author => author.IdAuthor == idAuthor)
+                                    .Select(author => author.Name)
+                                    .FirstOrDefault();
+            return authorName;
+        }
 
+        public async Task<long> GetAuthorNameByIsbn(string isbn)      
+        {
+            var authorName = _context.Author_Books.Where(author => author.ISBN == isbn)
+                                    .Select(author => author.IdAuthor)
+                                    .FirstOrDefault();
+            return authorName;
+        }
         public async Task<Author> PutAuthor(Author author)
         {
             await _context.SaveChangesAsync();

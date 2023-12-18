@@ -10,7 +10,7 @@ import { BookTableDataType } from "./Books.types";
 import { ReactNode } from "react";
 import {deleteBook, fetchBooks, postBook } from "../../service/BookApi";
 
-const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void, /*onBookByIsbn: (isbn:string)=>void*/} ) =>(
+const ActionCell =({book, onDelete}: {book: BookType, onDelete: (isbn:string)=>void, /*onBookByIsbn: (isbn:string)=>void*/ } ) =>(
   <div className="text-center">
     <Button 
       onClick={() => {

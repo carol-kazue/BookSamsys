@@ -15,7 +15,7 @@ namespace webApiBookSamsys.Infrastructure.Entities.DTOs
 
         public string Color { get; set; }
         public decimal Weight { get; set; }
-       // public List<long> authorId { get; set; }
+        public List<long> authorId { get; set; }
     }
 }
 

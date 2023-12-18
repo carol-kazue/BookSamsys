@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webApiBookSamsys.Infrastructure.Entities;
+using webApiBookSamsys.Infrastructure.Entities.DTOs;
 
 namespace webApiBookSamsys.Infrastructure.Repository
 {
@@ -24,7 +25,6 @@ namespace webApiBookSamsys.Infrastructure.Repository
             var list = _context.Author_Books.ToList();
             return list;
         }
-
        
     }
 }
